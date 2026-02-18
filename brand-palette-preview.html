@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TORICO Brand Palette Preview</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #0a0a0a;
+    color: #e0e0e0;
+    padding: 32px 24px;
+    line-height: 1.5;
+  }
+  h1 { font-size: 32px; font-weight: 700; margin-bottom: 6px; }
+  .subtitle { color: #888; font-size: 15px; margin-bottom: 40px; }
+
+  .palette-section {
+    margin-bottom: 56px;
+    border: 1px solid #222;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .palette-section:hover { border-color: #444; }
+  .palette-section.selected { border-width: 2px; }
+
+  .palette-header {
+    padding: 20px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+    cursor: pointer;
+  }
+  .palette-header h2 { font-size: 22px; font-weight: 700; }
+  .palette-mood { font-size: 13px; color: #888; font-style: italic; margin-top: 2px; }
+
+  .select-btn {
+    padding: 8px 20px; border: 2px solid currentColor; border-radius: 8px;
+    background: transparent; font-size: 13px; font-weight: 600; cursor: pointer;
+    transition: all 0.2s; white-space: nowrap;
+  }
+  .palette-section.selected .select-btn { color: #000 !important; }
+
+  .swatch-strip { display: flex; gap: 3px; padding: 0 28px 12px; flex-wrap: wrap; }
+  .sw {
+    width: 40px; height: 28px; border-radius: 5px;
+    display: flex; align-items: flex-end; justify-content: center;
+    font-size: 7px; padding-bottom: 2px; color: rgba(255,255,255,0.5);
+    border: 1px solid rgba(255,255,255,0.04);
+  }
+  .sw.lt { color: rgba(0,0,0,0.4); }
+
+  .mode-row-label {
+    padding: 8px 28px 4px;
+    font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px;
+    font-weight: 600;
+  }
+
+  .phones-row {
+    display: flex; gap: 16px; padding: 4px 28px 20px;
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+  }
+
+  .phone {
+    min-width: 260px; width: 260px; border-radius: 24px;
+    overflow: hidden; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.06);
+  }
+  .phone.light-phone { border-color: rgba(0,0,0,0.1); }
+  .phone-inner { padding: 20px 14px 14px; min-height: 480px; }
+
+  /* Shared UI */
+  .top-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .streak-badge { display: flex; align-items: center; gap: 4px; padding: 3px 9px; border-radius: 16px; font-size: 12px; font-weight: 700; }
+  .tabs-row { display: flex; gap: 12px; }
+  .tab-item { font-size: 13px; font-weight: 600; }
+  .tab-item.dim { opacity: 0.45; font-weight: 400; }
+  .profile-circle { width: 26px; height: 26px; border-radius: 50%; border: 1.5px solid; display: flex; align-items: center; justify-content: center; font-size: 11px; }
+
+  .cal-week { margin-bottom: 12px; }
+  .cal-days { display: flex; justify-content: space-between; margin-bottom: 3px; }
+  .cal-day { font-size: 9px; opacity: 0.45; text-align: center; width: 30px; }
+  .cal-dates { display: flex; justify-content: space-between; }
+  .cal-date {
+    width: 30px; height: 30px; border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 500; position: relative;
+  }
+  .cal-date .fire { font-size: 6px; color: #E53E3E; position: absolute; top: -1px; right: 1px; }
+  .cal-date.today { border: 1.5px solid; }
+
+  .cta-btn {
+    width: 100%; padding: 12px; border-radius: 13px;
+    font-size: 14px; font-weight: 600; text-align: center; margin-bottom: 14px;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+  }
+
+  .topic-card { border-radius: 14px; padding: 14px; position: relative; overflow: hidden; }
+  .topic-card .badge {
+    position: absolute; top: 8px; right: 8px;
+    font-size: 8px; padding: 2px 7px; border-radius: 8px; font-weight: 600;
+  }
+  .topic-title { font-size: 13px; font-weight: 700; margin: 6px 0; line-height: 1.4; text-align: center; }
+  .topic-hint { font-size: 10px; opacity: 0.65; margin-bottom: 8px; }
+  .topic-write-btn {
+    margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 5px;
+    padding: 6px 16px; border-radius: 16px; font-size: 11px; font-weight: 600; width: fit-content;
+  }
+
+  .tab-bar { display: flex; justify-content: center; gap: 4px; margin-top: 14px; padding-top: 6px; }
+  .tab-bar-item {
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
+    padding: 5px 14px; border-radius: 10px; font-size: 9px; opacity: 0.45;
+  }
+  .tab-bar-item.active { opacity: 1; }
+  .tab-bar-icon { font-size: 14px; }
+
+  .editor-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+  .editor-btn { padding: 5px 12px; border-radius: 16px; font-size: 12px; font-weight: 500; }
+  .editor-date { font-size: 13px; opacity: 0.6; }
+  .editor-prompt { font-size: 14px; font-weight: 600; line-height: 1.5; margin-bottom: 8px; }
+  .editor-placeholder { font-size: 12px; opacity: 0.3; margin-bottom: 40px; }
+  .mic-area { display: flex; align-items: center; justify-content: center; gap: 14px; margin: 30px 0 16px; }
+  .mic-btn { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; }
+  .kb-btn { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+  .action-bar { display: flex; gap: 5px; flex-wrap: wrap; }
+  .action-chip { padding: 5px 10px; border-radius: 7px; font-size: 10px; font-weight: 500; display: flex; align-items: center; gap: 3px; }
+
+  .mission-label { font-size: 18px; font-weight: 800; margin-bottom: 3px; }
+  .mission-sub { font-size: 10px; opacity: 0.55; margin-bottom: 12px; line-height: 1.4; }
+  .count-card { border-radius: 14px; padding: 24px; text-align: center; margin-bottom: 12px; }
+  .count-num { font-size: 44px; font-weight: 800; }
+  .count-unit { font-size: 13px; opacity: 0.55; margin-top: -4px; }
+  .start-btn {
+    width: 100%; padding: 14px; border-radius: 13px;
+    font-size: 15px; font-weight: 700; text-align: center;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+  }
+  .io-tab-bar { display: flex; justify-content: space-around; margin-top: auto; padding-top: 14px; }
+  .io-tab {
+    display: flex; flex-direction: column; align-items: center; gap: 1px;
+    font-size: 8px; opacity: 0.45; padding: 5px 8px; border-radius: 10px;
+  }
+  .io-tab.active { opacity: 1; }
+  .io-tab-icon { font-size: 16px; }
+
+  #selection-banner {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+    background: #1a1a1a; border: 1px solid #333; border-radius: 12px;
+    padding: 14px 28px; display: none; align-items: center; gap: 12px;
+    z-index: 100; box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+  }
+  #selection-banner.show { display: flex; }
+  .banner-dot { width: 16px; height: 16px; border-radius: 50%; }
+  #selection-banner span { font-weight: 600; font-size: 14px; }
+</style>
+</head>
+<body>
+
+<h1>TORICO Brand Palette Preview</h1>
+<p class="subtitle">Each palette applied to 3 real app screens in both dark and light mode</p>
+
+<div id="palettes"></div>
+
+<div id="selection-banner">
+  <div class="banner-dot" id="banner-dot"></div>
+  <span id="banner-text"></span>
+</div>
+
+<script>
+const palettes = [
+  {
+    id: 'current', name: 'Current Design (Baseline)', mood: 'The existing DRAWER / Instant Output palette - for comparison',
+    primary: '#4FD1C5', accent: '#81E6D9', primaryDark: '#319795',
+    swatches: [
+      { c:'#E6FFFA',l:1 },{ c:'#B2F5EA',l:1 },{ c:'#81E6D9',l:1 },{ c:'#4FD1C5' },{ c:'#38B2AC' },
+      { c:'#319795' },{ c:'#2C7A7B' },{ c:'#285E61' },{ c:'#234E52' },{ c:'#1D4044' }
+    ],
+    dark: { bg:'#264040', card:'#314A4A', surface:'#2C2C2E', text:'#FFFFFF', textSec:'rgba(255,255,255,0.7)', btnText:'#1C2A2E' },
+    light: { bg:'#FFFFFF', card:'#F7FAFC', surface:'#EDF2F7', text:'#171923', textSec:'#4A5568', btnText:'#fff',
+             cardBorder:'rgba(0,0,0,0.08)', chipBg:'#EDF2F7', chipText:'#285E61', tagBg:'rgba(79,209,197,0.1)', tagText:'#2C7A7B' },
+    editorLight: { bg:'#FFFFFF' }
+  },
+  {
+    id: 'a', name: 'Warm Amber / Gold', mood: 'Warm, wise, intimate - like candlelight journaling',
+    primary: '#F59E0B', accent: '#FBBF24', primaryDark: '#D97706',
+    swatches: [
+      { c:'#FFFBEB',l:1 },{ c:'#FEF3C7',l:1 },{ c:'#FDE68A',l:1 },{ c:'#FCD34D' },{ c:'#FBBF24' },
+      { c:'#F59E0B' },{ c:'#D97706' },{ c:'#B45309' },{ c:'#92400E' },{ c:'#78350F' }
+    ],
+    dark: { bg:'#1C1612', card:'#2A2118', surface:'#362C20', text:'#F5F0E8', textSec:'rgba(245,240,232,0.65)', btnText:'#1C1612' },
+    light: { bg:'#FFFBF5', card:'#FFF8ED', surface:'#FFF3DC', text:'#2A2118', textSec:'#7A6A55', btnText:'#fff',
+             cardBorder:'rgba(217,119,6,0.12)', chipBg:'#FEF3C7', chipText:'#B45309', tagBg:'rgba(245,158,11,0.1)', tagText:'#92400E' },
+    editorLight: { bg:'#FFFBF5' }
+  },
+  {
+    id: 'b', name: 'Soft Coral / Peach', mood: 'Friendly, human, encouraging',
+    primary: '#F97066', accent: '#FEB8B0', primaryDark: '#E8554B',
+    swatches: [
+      { c:'#FFF5F4',l:1 },{ c:'#FEE9E6',l:1 },{ c:'#FDD8D3',l:1 },{ c:'#FEB8B0' },{ c:'#FB918A' },
+      { c:'#F97066' },{ c:'#E8554B' },{ c:'#C93D34' },{ c:'#A62E26' },{ c:'#86211A' }
+    ],
+    dark: { bg:'#1A1518', card:'#2A2228', surface:'#352D32', text:'#F5EDE8', textSec:'rgba(245,237,232,0.65)', btnText:'#fff' },
+    light: { bg:'#FFF8F7', card:'#FFF1EF', surface:'#FFE8E5', text:'#2A2228', textSec:'#6B5560', btnText:'#fff',
+             cardBorder:'rgba(249,112,102,0.12)', chipBg:'#FEE9E6', chipText:'#A62E26', tagBg:'rgba(249,112,102,0.1)', tagText:'#86211A' },
+    editorLight: { bg:'#FFF8F7' }
+  },
+  {
+    id: 'c', name: 'Deep Violet / Lavender', mood: 'Captivating, creative, dreamy',
+    primary: '#8B5CF6', accent: '#C4B5FD', primaryDark: '#7C3AED',
+    swatches: [
+      { c:'#F5F3FF',l:1 },{ c:'#EDE9FE',l:1 },{ c:'#DDD6FE',l:1 },{ c:'#C4B5FD' },{ c:'#A78BFA' },
+      { c:'#8B5CF6' },{ c:'#7C3AED' },{ c:'#6D28D9' },{ c:'#5B21B6' },{ c:'#4C1D95' }
+    ],
+    dark: { bg:'#13111C', card:'#1E1A2E', surface:'#28233A', text:'#E8E4F0', textSec:'rgba(232,228,240,0.65)', btnText:'#fff' },
+    light: { bg:'#FAFAFF', card:'#F3F0FF', surface:'#EDE9FE', text:'#1E1A2E', textSec:'#5A5068', btnText:'#fff',
+             cardBorder:'rgba(139,92,246,0.12)', chipBg:'#EDE9FE', chipText:'#5B21B6', tagBg:'rgba(139,92,246,0.1)', tagText:'#4C1D95' },
+    editorLight: { bg:'#FAFAFF' }
+  },
+  {
+    id: 'd', name: 'Warm Sage / Olive', mood: 'Calm, sustainable, grounded',
+    primary: '#6B8F71', accent: '#A3C4A8', primaryDark: '#5A7C60',
+    swatches: [
+      { c:'#EFF5EF',l:1 },{ c:'#DDE9DF',l:1 },{ c:'#C2DBC5',l:1 },{ c:'#A3C4A8' },{ c:'#88AC8D' },
+      { c:'#6B8F71' },{ c:'#5A7C60' },{ c:'#4A6950' },{ c:'#3A5540' },{ c:'#2D4332' }
+    ],
+    dark: { bg:'#141A14', card:'#1E261E', surface:'#283028', text:'#E0E8E0', textSec:'rgba(224,232,224,0.65)', btnText:'#fff' },
+    light: { bg:'#F7FAF7', card:'#EFF5EF', surface:'#DDE9DF', text:'#1E261E', textSec:'#4A5A4A', btnText:'#fff',
+             cardBorder:'rgba(107,143,113,0.12)', chipBg:'#DDE9DF', chipText:'#3A5540', tagBg:'rgba(107,143,113,0.1)', tagText:'#2D4332' },
+    editorLight: { bg:'#F7FAF7' }
+  },
+  {
+    id: 'e', name: 'Refined Teal / Cyan', mood: 'Familiar, trustworthy, evolved - the DRAWER teal, elevated',
+    primary: '#4FD1C5', accent: '#81E6D9', primaryDark: '#38B2AC',
+    swatches: [
+      { c:'#E6FFFA',l:1 },{ c:'#D5FAF5',l:1 },{ c:'#B2F5EA',l:1 },{ c:'#81E6D9' },{ c:'#5DD8CC' },
+      { c:'#4FD1C5' },{ c:'#38B2AC' },{ c:'#2C9A94' },{ c:'#1F7A75' },{ c:'#155C58' }
+    ],
+    dark: { bg:'#111E1E', card:'#1A2C2C', surface:'#243B3B', text:'#E0F0EE', textSec:'rgba(224,240,238,0.65)', btnText:'#111E1E' },
+    light: { bg:'#F5FFFE', card:'#E6FFFA', surface:'#D5FAF5', text:'#111E1E', textSec:'#3A5855', btnText:'#fff',
+             cardBorder:'rgba(79,209,197,0.12)', chipBg:'#D5FAF5', chipText:'#1F7A75', tagBg:'rgba(79,209,197,0.1)', tagText:'#155C58' },
+    editorLight: { bg:'#F5FFFE' }
+  },
+  {
+    id: 'f', name: 'Neutral + Character Color', mood: 'Clean black & white UI - characters bring all the personality (like Yoom)',
+    primary: '#888888', accent: '#AAAAAA', primaryDark: '#555555',
+    isNeutral: true,
+    swatches: [
+      { c:'#FFFFFF',l:1 },{ c:'#FAFAFA',l:1 },{ c:'#F0F0F0',l:1 },{ c:'#E0E0E0',l:1 },{ c:'#BFBFBF',l:1 },
+      { c:'#888888' },{ c:'#555555' },{ c:'#333333' },{ c:'#1A1A1A' },{ c:'#0C0C0C' }
+    ],
+    dark: { bg:'#0C0C0C', card:'#1A1A1A', surface:'#252525', text:'#FFFFFF', textSec:'rgba(255,255,255,0.6)', btnText:'#0C0C0C' },
+    light: { bg:'#FFFFFF', card:'#F5F5F5', surface:'#EBEBEB', text:'#111111', textSec:'#777777', btnText:'#FFFFFF',
+             cardBorder:'rgba(0,0,0,0.08)', chipBg:'#F0F0F0', chipText:'#333333', tagBg:'rgba(0,0,0,0.05)', tagText:'#555555' },
+    editorLight: { bg:'#FFFFFF' }
+  }
+];
+
+function renderPhone_Home(p, mode) {
+  const m = mode === 'dark' ? p.dark : p.light;
+  const isLight = mode === 'light';
+  const isN = p.isNeutral;
+  const bg = m.bg, card = m.card, srf = m.surface, txt = m.text, btnT = m.btnText;
+
+  // Neutral: buttons are white-on-dark / black-on-light; active tabs bold not colored
+  const pri = isN ? (isLight ? '#111111' : '#FFFFFF') : (isLight ? p.primaryDark : p.primary);
+  const ctaBg = isN ? (isLight ? '#111111' : '#FFFFFF') : p.primary;
+  const ctaTxt = isN ? (isLight ? '#FFFFFF' : '#0C0C0C') : btnT;
+  const tagBg = isN ? (isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.1)') : (isLight ? p.light.tagBg : `rgba(${hexToRgb(p.primary)},0.15)`);
+  const tagTxt = isN ? (isLight ? '#555' : '#ccc') : (isLight ? p.light.tagText : p.accent);
+  const activeTxt = isN ? txt : pri;
+  const cardBorder = isLight ? `border:1px solid ${p.light.cardBorder};` : '';
+  const todayBorder = isN ? (isLight ? '#111' : '#fff') : pri;
+  // Character image for neutral palette
+  const charHtml = isN ? `<div style="display:flex;justify-content:center;margin:6px 0 2px"><img src="assets/characters/drawer-main.png" style="width:52px;height:52px;object-fit:contain;border-radius:10px"></div>` : `<div style="text-align:center;font-size:20px;margin-top:2px">📖</div>`;
+  const badgeBg = isN ? (isLight ? '#111' : '#fff') : `linear-gradient(90deg,${p.primary},${p.accent})`;
+  const badgeTxt = isN ? (isLight ? '#fff' : '#111') : (isLight ? '#fff' : bg);
+
+  return `<div class="phone ${isLight?'light-phone':''}" style="background:${bg}">
+    <div class="phone-inner" style="color:${txt}">
+      <div class="top-row">
+        <div class="streak-badge" style="background:${card};color:${isN?txt:pri}">🔥 204 days</div>
+        <div class="tabs-row"><span class="tab-item" style="color:${activeTxt}">Today</span><span class="tab-item dim">My Journals</span></div>
+        <div class="profile-circle" style="border-color:${isN?'rgba(128,128,128,0.3)':`rgba(${hexToRgb(pri)},0.3)`};color:${isN?'rgba(128,128,128,0.5)':`rgba(${hexToRgb(pri)},0.5)`}">👤</div>
+      </div>
+      <div class="cal-week">
+        <div class="cal-days">${['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].map(d=>`<span class="cal-day">${d}</span>`).join('')}</div>
+        <div class="cal-dates">
+          ${calDate('2/15',card,true,false)}${calDate('16',card,true,false)}${calDate('17',card,true,false)}
+          ${calDate('18',card,true,true,todayBorder)}${calDate('19',card,false,false)}${calDate('20',card,false,false)}${calDate('21',card,false,false)}
+        </div>
+      </div>
+      <div class="cta-btn" style="background:${ctaBg};color:${ctaTxt};border-radius:13px">✏️ Write your English journal freely</div>
+      <div style="font-size:14px;font-weight:700;margin-bottom:8px">Topics for You</div>
+      <div class="topic-card" style="background:${isN?card:`linear-gradient(135deg,${card} 0%,${srf} 100%)`};${cardBorder}">
+        <div class="badge" style="background:${badgeBg};color:${badgeTxt}">✨ Personalized</div>
+        ${charHtml}
+        <div class="topic-title">What specific qualities do you look for in business partners?</div>
+        <div class="topic-hint">💡 I look for partners who are passionate about education...</div>
+        <div class="topic-write-btn" style="background:${tagBg};color:${tagTxt}">✍️ Tap to write</div>
+      </div>
+      <div class="tab-bar">
+        <div class="tab-bar-item active" style="background:${card};color:${activeTxt}"><span class="tab-bar-icon">📓</span>Journals</div>
+        <div class="tab-bar-item" style="color:${txt}"><span class="tab-bar-icon">🎓</span>Vocabulary</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderPhone_Editor(p, mode) {
+  const m = mode === 'dark' ? p.dark : p.light;
+  const isLight = mode === 'light';
+  const isN = p.isNeutral;
+  const pri = isN ? (isLight ? '#111111' : '#FFFFFF') : (isLight ? p.primaryDark : p.primary);
+  const edBg = isLight ? p.editorLight.bg : '#000000';
+  const chipBg = isLight ? p.light.chipBg : m.card;
+  const chipTxt = isLight ? p.light.chipText : m.text;
+  const btnBg = mode === 'dark' ? m.card : p.light.surface;
+  // Neutral: mic button is white/dark, prompt is normal text color
+  const micBg = isN ? (isLight ? '#111' : '#fff') : p.primary;
+  const micTxt = isN ? (isLight ? '#fff' : '#111') : (isLight ? '#fff' : p.dark.btnText);
+  const promptColor = isN ? m.text : pri;
+  const doneBorder = isN ? `rgba(128,128,128,0.3)` : `rgba(${hexToRgb(pri)},0.3)`;
+  // Neutral: add small character face next to prompt
+  const charFace = isN ? `<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><img src="assets/characters/drawer-face-happy.png" style="width:32px;height:32px;object-fit:contain;border-radius:6px"><span style="font-size:11px;opacity:0.5">AI Companion</span></div>` : '';
+
+  return `<div class="phone ${isLight?'light-phone':''}" style="background:${edBg}">
+    <div class="phone-inner" style="color:${m.text}">
+      <div class="editor-top">
+        <div class="editor-btn" style="background:${btnBg};color:${m.text}">Close</div>
+        <div class="editor-date">February 18 ▾</div>
+        <div class="editor-btn" style="background:transparent;color:${pri};border:1.5px solid ${doneBorder}">◇ Done</div>
+      </div>
+      ${charFace}
+      <div class="editor-prompt" style="color:${promptColor}">What specific qualities do you look for in business partners for your language learning app?</div>
+      <div class="editor-placeholder">Write about recent events or themes you'd like to speak about.</div>
+      <div class="mic-area">
+        <div class="mic-btn" style="background:${micBg};color:${micTxt}">🎤</div>
+        <div class="kb-btn" style="background:${btnBg};color:${m.text}">⌨️</div>
+      </div>
+      <div class="action-bar">
+        <div class="action-chip" style="background:${chipBg};color:${chipTxt}">✨ Correct</div>
+        <div class="action-chip" style="background:${chipBg};color:${chipTxt}">🔤 Translate</div>
+        <div class="action-chip" style="background:${chipBg};color:${chipTxt}">🔊 Speak</div>
+        <div class="action-chip" style="background:${chipBg};color:${chipTxt}">🔍 Search</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderPhone_IO(p, mode) {
+  const m = mode === 'dark' ? p.dark : p.light;
+  const isLight = mode === 'light';
+  const isN = p.isNeutral;
+  const pri = isN ? (isLight ? '#111' : '#fff') : (isLight ? p.primaryDark : p.primary);
+  const bg = m.bg, card = m.card, txt = m.text;
+  const startBg = isN ? (isLight ? '#111' : '#fff') : p.primary;
+  const startTxt = isN ? (isLight ? '#fff' : '#111') : (isLight ? m.btnText : p.dark.btnText);
+  const todayBorder = isN ? (isLight ? '#111' : '#fff') : pri;
+  // Neutral: character beside mission count
+  const charCount = isN ? `<div style="display:flex;align-items:center;gap:12px;justify-content:center">
+      <img src="assets/characters/drawer-face-neutral.png" style="width:44px;height:44px;object-fit:contain;border-radius:8px">
+      <div><div class="count-num">10</div><div class="count-unit">問</div></div>
+    </div>` : `<div class="count-num">10</div><div class="count-unit">問</div>`;
+
+  return `<div class="phone ${isLight?'light-phone':''}" style="background:${bg}">
+    <div class="phone-inner" style="color:${txt}">
+      <div class="top-row">
+        <span style="font-size:14px;opacity:0.5">📊</span>
+        <div class="streak-badge" style="background:${card};color:${isN?txt:pri}">🔥 30</div>
+        <span style="font-size:14px;opacity:0.5">⚙️</span>
+      </div>
+      <div class="cal-week">
+        <div class="cal-days">${['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].map(d=>`<span class="cal-day">${d}</span>`).join('')}</div>
+        <div class="cal-dates">
+          ${calDate('2/15',card,true,false)}${calDate('16',card,true,false)}${calDate('17',card,true,false)}
+          ${calDate('18',card,true,true,todayBorder)}${calDate('19',card,false,false)}${calDate('20',card,false,false)}${calDate('21',card,false,false)}
+        </div>
+      </div>
+      <div class="mission-label">今日のミッション</div>
+      <div class="mission-sub">あなたの日記や過去の練習文を、忘却曲線に基づき復習</div>
+      <div class="count-card" style="background:${card}">
+        ${charCount}
+      </div>
+      <div class="start-btn" style="background:${startBg};color:${startTxt}">▶ スタート</div>
+      <div class="io-tab-bar">
+        <div class="io-tab active" style="background:${card};color:${isN?txt:pri}"><span class="io-tab-icon">📅</span>今日</div>
+        <div class="io-tab" style="color:${txt}"><span class="io-tab-icon">📖</span>コース</div>
+        <div class="io-tab" style="color:${txt}"><span class="io-tab-icon">💬</span>トピック</div>
+        <div class="io-tab" style="color:${txt}"><span class="io-tab-icon">📊</span>ライブラリ</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function calDate(label, bg, hasFire, isToday, borderColor) {
+  const bc = isToday ? `border:1.5px solid ${borderColor};` : '';
+  return `<div class="cal-date${isToday?' today':''}" style="background:${bg};${bc}">${hasFire?'<span class="fire">🔥</span>':''}${label}</div>`;
+}
+
+function hexToRgb(hex) {
+  const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+  return `${r},${g},${b}`;
+}
+
+const container = document.getElementById('palettes');
+
+palettes.forEach(p => {
+  const swatchHtml = p.swatches.map((s,i) => {
+    const labels = ['50','100','200','300','400','500','600','700','800','900'];
+    return `<div class="sw${s.l?' lt':''}" style="background:${s.c}">${labels[i]}</div>`;
+  }).join('');
+
+  const darkBgSwatches = `<div style="width:6px"></div>
+    <div class="sw" style="background:${p.dark.bg}">BG</div>
+    <div class="sw" style="background:${p.dark.card}">Card</div>
+    <div class="sw" style="background:${p.dark.surface}">Srf</div>
+    <div style="width:4px"></div>
+    <div class="sw lt" style="background:${p.light.bg}">BG</div>
+    <div class="sw lt" style="background:${p.light.card}">Card</div>
+    <div class="sw lt" style="background:${p.light.surface}">Srf</div>`;
+
+  const isCurrent = p.id === 'current';
+  const isN = p.isNeutral;
+  const label = isCurrent ? '' : `${p.id.toUpperCase()}) `;
+  const headerColor = isCurrent ? '#aaa' : (isN ? '#ddd' : p.primary);
+  const selColor = isN ? '#ffffff' : p.primary;
+  const btnHtml = isCurrent
+    ? `<span style="color:#666;font-size:12px;font-style:italic">Baseline</span>`
+    : `<button class="select-btn" style="color:${headerColor}" onclick="event.stopPropagation();selectPalette('${p.id}')">&nbsp;Select&nbsp;</button>`;
+
+  container.innerHTML += `
+    <div class="palette-section" id="palette-${p.id}" style="--sel-color:${selColor};border-color:${isCurrent?'#444':selColor+'33'}">
+      <div class="palette-header" ${isCurrent?'':`onclick="selectPalette('${p.id}')"`}>
+        <div>
+          <h2 style="color:${headerColor}">${label}${p.name}</h2>
+          <p class="palette-mood">${p.mood}</p>
+        </div>
+        ${btnHtml}
+      </div>
+      <div class="swatch-strip">${swatchHtml}${darkBgSwatches}</div>
+      <div class="mode-row-label" style="color:${isN?'#aaa':p.primary}">☾ Dark Mode</div>
+      <div class="phones-row">
+        ${renderPhone_Home(p,'dark')}
+        ${renderPhone_Editor(p,'dark')}
+        ${renderPhone_IO(p,'dark')}
+      </div>
+      <div class="mode-row-label" style="color:${isN?'#888':p.primaryDark}">☀ Light Mode</div>
+      <div class="phones-row">
+        ${renderPhone_Home(p,'light')}
+        ${renderPhone_Editor(p,'light')}
+        ${renderPhone_IO(p,'light')}
+      </div>
+    </div>`;
+});
+
+let selectedPalette = null;
+function selectPalette(id) {
+  const p = palettes.find(x=>x.id===id);
+  const selC = p.isNeutral ? '#ffffff' : p.primary;
+  document.querySelectorAll('.palette-section').forEach(el => {
+    const pid = el.id.replace('palette-','');
+    const pp = palettes.find(x=>x.id===pid);
+    const c = pp.isNeutral ? '#ffffff' : pp.primary;
+    el.classList.remove('selected');
+    el.style.borderColor = c + '33';
+  });
+  const section = document.getElementById('palette-'+id);
+  section.classList.add('selected');
+  section.style.borderColor = selC;
+  document.getElementById('banner-dot').style.background = selC;
+  document.getElementById('banner-text').textContent = 'Selected: ' + p.name;
+  document.getElementById('selection-banner').classList.add('show');
+  section.scrollIntoView({ behavior:'smooth', block:'start' });
+}
+</script>
+</body>
+</html>

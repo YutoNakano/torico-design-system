@@ -28,6 +28,12 @@
     "./tailwind": {
       "import": "./dist/web/tailwind.tokens.js",
       "require": "./dist/web/tailwind.tokens.js"
+    },
+    "./assets": {
+      "react-native": "./assets/characters.native.ts",
+      "import": "./assets/index.ts",
+      "require": "./assets/index.ts",
+      "types": "./assets/index.ts"
     }
   },
   "scripts": {
@@ -54,6 +60,7 @@
   "files": [
     "dist",
     "tokens",
+    "assets",
     "README.md"
   ],
   "keywords": [
