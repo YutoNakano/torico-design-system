@@ -17,7 +17,7 @@ import {
 
 /**
  * Dark theme color palette
- * This is the default theme for DRAWER and Shunsaku apps.
+ * This is the default theme for DRAWER and Instant Output apps.
  */
 export const darkTheme = {
   brand,

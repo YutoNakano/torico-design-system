@@ -20,6 +20,6 @@
       "module": "CommonJS"
     }
   },
-  "include": ["tokens/**/*", "build/**/*"],
+  "include": ["tokens/**/*", "build/**/*", "assets/**/*"],
   "exclude": ["node_modules", "dist"]
 }

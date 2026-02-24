@@ -2,11 +2,10 @@
  * Light Theme Tokens
  *
  * Light mode color overrides for TORICO products.
- * Note: DRAWER primarily uses dark mode, but light mode is available for
- * future use and web landing pages.
+ * Neutral-first: black interactive elements on white backgrounds.
  */
 
-import { teal, neutral, feedback } from '../primitives/colors';
+import { neutral, feedback } from '../primitives/colors';
 
 /**
  * Light theme color palette
@@ -16,12 +15,12 @@ export const lightTheme = {
    * Brand colors - Primary brand identity in light mode
    */
   brand: {
-    primary: teal[500], // Slightly darker for better contrast on white
-    primaryHover: teal[600],
-    primaryMuted: teal[300],
-    secondary: neutral[800],
-    webPrimary: '#4A9B8E',
-    webPrimaryDark: '#3A7A6F',
+    primary: neutral[900], // #141414 - black on light
+    primaryHover: neutral[700],
+    primaryMuted: neutral[400],
+    secondary: neutral[100],
+    webPrimary: neutral[900],
+    webPrimaryDark: neutral[800],
   },
 
   /**
@@ -29,8 +28,8 @@ export const lightTheme = {
    */
   background: {
     primary: neutral[0], // #FFFFFF
-    secondary: neutral[50], // #F7FAFC
-    tertiary: neutral[100], // #EDF2F7
+    secondary: neutral[50], // #FAFAFA
+    tertiary: neutral[100], // #F5F5F5
     card: neutral[0],
     cardSolid: neutral[0],
     surface: neutral[50],
@@ -46,14 +45,14 @@ export const lightTheme = {
    * Text colors - Dark text on light backgrounds
    */
   text: {
-    primary: neutral[900], // #171923
-    secondary: neutral[600], // #4A5568
-    tertiary: neutral[500], // #718096
-    disabled: neutral[400], // #A0AEC0
+    primary: neutral[900], // #141414
+    secondary: neutral[600], // #666666
+    tertiary: neutral[500], // #8E8E8E
+    disabled: neutral[400], // #BFBFBF
     placeholder: neutral[400],
     inverse: neutral[0],
-    brand: teal[600],
-    link: teal[600],
+    brand: neutral[900],
+    link: neutral[900],
     error: feedback.error.dark,
     success: feedback.success.dark,
     warning: feedback.warning.dark,
@@ -63,10 +62,10 @@ export const lightTheme = {
    * Border colors
    */
   border: {
-    default: neutral[200], // #E2E8F0
+    default: neutral[200], // #EBEBEB
     subtle: neutral[100],
     muted: neutral[300],
-    focus: teal[500],
+    focus: neutral[900],
     error: feedback.error.base,
     success: feedback.success.base,
   },
@@ -75,10 +74,10 @@ export const lightTheme = {
    * Interactive colors
    */
   interactive: {
-    primary: teal[500],
-    primaryHover: teal[600],
-    primaryPressed: teal[700],
-    primaryDisabled: teal[200],
+    primary: neutral[900], // #141414 - black buttons on light
+    primaryHover: neutral[700],
+    primaryPressed: neutral[600],
+    primaryDisabled: neutral[300],
     secondary: neutral[100],
     secondaryHover: neutral[200],
     destructive: feedback.error.base,
@@ -121,7 +120,7 @@ export const lightTheme = {
     secondary: neutral[600],
     muted: neutral[500],
     disabled: neutral[400],
-    brand: teal[600],
+    brand: neutral[900],
     inverse: neutral[0],
     onLight: neutral[900],
   },

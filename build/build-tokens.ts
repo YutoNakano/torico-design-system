@@ -29,6 +29,30 @@ const typesDir = path.join(distDir, 'types');
 const timestamp = new Date().toISOString();
 
 // =============================================================================
+// Asset Verification
+// =============================================================================
+
+const assetsDir = path.resolve(__dirname, '../assets/characters');
+const requiredAssets = [
+  'drawer-app-icon.png',
+  'drawer-main.png',
+  'drawer-face-neutral.png',
+  'drawer-face-happy.png',
+  'drawer-face-frustrated.png',
+  'drawer-face-confused.png',
+];
+
+const missingAssets = requiredAssets.filter(
+  (asset) => !fs.existsSync(path.join(assetsDir, asset))
+);
+
+if (missingAssets.length > 0) {
+  console.warn(`⚠ Missing character assets: ${missingAssets.join(', ')}`);
+} else {
+  console.log('✓ All character assets present');
+}
+
+// =============================================================================
 // Native Output Generation
 // =============================================================================
 
@@ -56,58 +80,45 @@ console.log('✓ Generated native tokens');
 
 // Color values for Tailwind
 const tailwindColors: Record<string, string> = {
-  // Brand colors
-  'brand-primary': '#4FD1C5',
-  'brand-primary-hover': '#38B2AC',
-  'brand-secondary': '#1C2A2E',
-  'web-primary': '#4A9B8E',
-  'web-primary-dark': '#3A7A6F',
-
-  // Teal palette
-  'teal-50': '#E6FFFA',
-  'teal-100': '#B2F5EA',
-  'teal-200': '#81E6D9',
-  'teal-300': '#4FD1C5',
-  'teal-400': '#38B2AC',
-  'teal-500': '#319795',
-  'teal-600': '#2C7A7B',
-  'teal-700': '#285E61',
-  'teal-800': '#234E52',
-  'teal-900': '#1D4044',
+  // Brand colors (neutral-first: white on dark, black on light)
+  'brand-primary': '#FFFFFF',
+  'brand-primary-hover': '#EBEBEB',
+  'brand-secondary': '#1A1A1A',
 
   // Neutral palette
   'neutral-0': '#FFFFFF',
-  'neutral-50': '#F7FAFC',
-  'neutral-100': '#EDF2F7',
-  'neutral-200': '#E2E8F0',
-  'neutral-300': '#CBD5E0',
-  'neutral-400': '#A0AEC0',
-  'neutral-500': '#718096',
-  'neutral-600': '#4A5568',
-  'neutral-700': '#2D3748',
-  'neutral-800': '#1A202C',
-  'neutral-900': '#171923',
+  'neutral-50': '#FAFAFA',
+  'neutral-100': '#F5F5F5',
+  'neutral-200': '#EBEBEB',
+  'neutral-300': '#E0E0E0',
+  'neutral-400': '#BFBFBF',
+  'neutral-500': '#8E8E8E',
+  'neutral-600': '#666666',
+  'neutral-700': '#444444',
+  'neutral-800': '#282828',
+  'neutral-900': '#141414',
+  'neutral-950': '#0C0C0C',
 
-  // Dark app colors
-  'app-background': '#264040',
-  'app-secondary': '#1C1C1E',
-  'app-tertiary': '#2C2C2E',
-  'app-surface': '#2A2A2A',
-  'app-gray': '#1C2A2E',
+  // Dark app backgrounds
+  'app-background': '#0C0C0C',
+  'app-secondary': '#141414',
+  'app-tertiary': '#1A1A1A',
+  'app-surface': '#252525',
+  'app-gray': '#1A1A1A',
 
   // Feedback colors
-  'success': '#48BB78',
-  'success-light': '#C6F6D5',
-  'success-dark': '#276749',
-  'warning': '#ECC94B',
-  'warning-light': '#FEFCBF',
-  'warning-dark': '#B7791F',
-  'error': '#FC8181',
-  'error-light': '#FED7D7',
-  'error-dark': '#C53030',
-  'info': '#63B3ED',
-  'info-light': '#BEE3F8',
-  'info-dark': '#2B6CB0',
+  'success': '#22C55E',
+  'success-light': '#DCFCE7',
+  'success-dark': '#166534',
+  'warning': '#EAB308',
+  'warning-light': '#FEF9C3',
+  'warning-dark': '#A16207',
+  'error': '#EF4444',
+  'error-light': '#FEE2E2',
+  'error-dark': '#B91C1C',
+  'info': '#3B82F6',
+  'info-light': '#DBEAFE',
+  'info-dark': '#1D4ED8',
 };
 
 // Spacing scale for Tailwind

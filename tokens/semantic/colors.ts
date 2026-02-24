@@ -3,26 +3,31 @@
  *
  * Context-aware color tokens that map primitive colors to their intended use.
  * These are the tokens that should be used in components.
+ *
+ * Default values are dark-mode first (the primary theme for native apps).
+ * Light theme overrides are in themes/light.ts.
  */
 
-import { teal, neutral, darkNeutral, feedback, alpha } from '../primitives/colors';
+import { neutral, darkNeutral, feedback, alpha } from '../primitives/colors';
 
 /**
- * Brand colors - Primary brand identity
+ * Brand colors - Neutral-first identity
+ * In dark mode, primary interactive color is white.
+ * In light mode, primary interactive color is black (overridden in light theme).
  */
 export const brand = {
-  /** Primary brand color - teal accent */
-  primary: teal[300], // #4FD1C5
+  /** Primary brand color (white on dark) */
+  primary: neutral[0], // #FFFFFF
   /** Primary color for hover/pressed states */
-  primaryHover: teal[400],
+  primaryHover: neutral[200],
   /** Primary color for disabled states */
-  primaryMuted: teal[600],
-  /** Secondary brand color - dark gray */
-  secondary: darkNeutral.gray, // #1C2A2E
-  /** Web-specific primary (lighter teal) */
-  webPrimary: '#4A9B8E',
+  primaryMuted: neutral[500],
+  /** Secondary brand color */
+  secondary: darkNeutral.gray,
+  /** Web-specific primary */
+  webPrimary: neutral[900],
   /** Web-specific primary dark variant */
-  webPrimaryDark: '#3A7A6F',
+  webPrimaryDark: neutral[800],
 } as const;
 
 /**
@@ -30,19 +35,19 @@ export const brand = {
  */
 export const background = {
   /** Primary app background */
-  primary: darkNeutral.background, // #264040
+  primary: darkNeutral.background, // #0C0C0C
   /** Secondary background for sheets/modals */
-  secondary: darkNeutral.backgroundSecondary, // #1C1C1E
+  secondary: darkNeutral.backgroundSecondary,
   /** Tertiary background for elevated cards */
-  tertiary: darkNeutral.backgroundTertiary, // #2C2C2E
+  tertiary: darkNeutral.backgroundTertiary,
   /** Card background with slight transparency */
-  card: 'rgba(49, 74, 74, 0.95)',
+  card: 'rgba(26, 26, 26, 0.95)',
   /** Card background solid */
-  cardSolid: '#314A4A',
+  cardSolid: '#1A1A1A',
   /** Surface for inputs and interactive elements */
-  surface: darkNeutral.surface, // #2A2A2A
+  surface: darkNeutral.surface,
   /** Darker surface variant */
-  surfaceDark: darkNeutral.surfaceDark, // #222222
+  surfaceDark: darkNeutral.surfaceDark,
   /** Overlay background for modals */
   overlay: `rgba(0, 0, 0, ${alpha[50]})`,
   /** Light overlay */
@@ -62,19 +67,19 @@ export const text = {
   /** Primary text - high emphasis */
   primary: neutral[0], // #FFFFFF
   /** Secondary text - medium emphasis */
-  secondary: `rgba(255, 255, 255, ${alpha[70]})`,
+  secondary: `rgba(255, 255, 255, ${alpha[60]})`,
   /** Tertiary text - low emphasis */
-  tertiary: `rgba(255, 255, 255, ${alpha[50]})`,
+  tertiary: `rgba(255, 255, 255, ${alpha[40]})`,
   /** Disabled text */
-  disabled: `rgba(255, 255, 255, ${alpha[30]})`,
+  disabled: `rgba(255, 255, 255, ${alpha[20]})`,
   /** Placeholder text */
-  placeholder: `rgba(255, 255, 255, ${alpha[40]})`,
+  placeholder: `rgba(255, 255, 255, ${alpha[30]})`,
   /** Inverse text (dark on light) */
   inverse: neutral[900],
-  /** Brand-colored text */
-  brand: teal[300],
+  /** Brand-colored text (same as primary in neutral palette) */
+  brand: neutral[0],
   /** Link text color */
-  link: teal[300],
+  link: neutral[0],
   /** Error text */
   error: feedback.error.base,
   /** Success text */
@@ -88,13 +93,13 @@ export const text = {
  */
 export const border = {
   /** Default border */
-  default: '#333333',
+  default: neutral[800],
   /** Subtle border/divider */
   subtle: `rgba(255, 255, 255, ${alpha[10]})`,
   /** Muted border */
   muted: `rgba(255, 255, 255, ${alpha[20]})`,
   /** Focused border */
-  focus: teal[300],
+  focus: neutral[0],
   /** Error border */
   error: feedback.error.base,
   /** Success border */
@@ -105,14 +110,14 @@ export const border = {
  * Interactive colors - Buttons, links, and interactive elements
  */
 export const interactive = {
-  /** Primary interactive color */
-  primary: teal[300],
+  /** Primary interactive color (white on dark) */
+  primary: neutral[0],
   /** Primary hover state */
-  primaryHover: teal[400],
+  primaryHover: neutral[200],
   /** Primary pressed state */
-  primaryPressed: teal[500],
+  primaryPressed: neutral[300],
   /** Primary disabled state */
-  primaryDisabled: teal[700],
+  primaryDisabled: neutral[700],
   /** Secondary interactive */
   secondary: darkNeutral.gray,
   /** Secondary hover */
@@ -164,17 +169,17 @@ export const icon = {
   /** Primary icon color */
   primary: neutral[0],
   /** Secondary icon color */
-  secondary: `rgba(255, 255, 255, ${alpha[70]})`,
+  secondary: `rgba(255, 255, 255, ${alpha[60]})`,
   /** Muted icon color */
-  muted: `rgba(255, 255, 255, ${alpha[50]})`,
+  muted: `rgba(255, 255, 255, ${alpha[40]})`,
   /** Disabled icon color */
-  disabled: `rgba(255, 255, 255, ${alpha[30]})`,
+  disabled: `rgba(255, 255, 255, ${alpha[20]})`,
   /** Brand icon color */
-  brand: teal[300],
+  brand: neutral[0],
   /** Inverse icon (dark) */
   inverse: neutral[900],
   /** Icon on light background */
-  onLight: '#061315',
+  onLight: neutral[900],
 } as const;
 
 /**

@@ -1,121 +1,83 @@
 /**
  * Primitive Color Tokens
  *
- * Raw color values that form the foundation of the TORICO color system.
+ * Neutral-first color system for the TORICO design system.
+ * Brand personality comes from character assets, not UI chrome.
  * These should NOT be used directly in components - use semantic colors instead.
  */
 
 /**
- * Teal palette - Primary brand color family
- * Based on DRAWER's signature teal (#4FD1C5)
- */
-export const teal = {
-  50: '#E6FFFA',
-  100: '#B2F5EA',
-  200: '#81E6D9',
-  300: '#4FD1C5', // Brand primary
-  400: '#38B2AC',
-  500: '#319795',
-  600: '#2C7A7B',
-  700: '#285E61',
-  800: '#234E52',
-  900: '#1D4044',
-} as const;
-
-/**
- * Neutral palette - For backgrounds, text, and borders
- * Dark-mode first design based on DRAWER's dark UI
+ * Neutral palette - The core palette for all UI elements
+ * Clean grayscale for a minimal, content-first aesthetic
  */
 export const neutral = {
   0: '#FFFFFF',
-  50: '#F7FAFC',
-  100: '#EDF2F7',
-  200: '#E2E8F0',
-  300: '#CBD5E0',
-  400: '#A0AEC0',
-  500: '#718096',
-  600: '#4A5568',
-  700: '#2D3748',
-  800: '#1A202C',
-  900: '#171923',
-  950: '#0D1117',
+  50: '#FAFAFA',
+  100: '#F5F5F5',
+  200: '#EBEBEB',
+  300: '#E0E0E0',
+  400: '#BFBFBF',
+  500: '#8E8E8E',
+  600: '#666666',
+  700: '#444444',
+  800: '#282828',
+  900: '#141414',
+  950: '#0C0C0C',
 } as const;
 
 /**
- * App-specific dark neutrals
- * Custom dark colors used in DRAWER and Shunsaku apps
+ * Dark backgrounds - Pure dark tones for dark mode
+ * Clean and minimal to let character assets provide color
  */
 export const darkNeutral = {
-  /** Primary app background - matches DRAWER iOS */
-  background: '#264040',
-  /** Secondary background - iOS secondarySystemBackground dark mode */
-  backgroundSecondary: '#1C1C1E',
-  /** Tertiary background - iOS tertiarySystemBackground dark mode */
-  backgroundTertiary: '#2C2C2E',
+  /** Primary app background */
+  background: '#0C0C0C',
+  /** Secondary background */
+  backgroundSecondary: '#141414',
+  /** Tertiary background */
+  backgroundTertiary: '#1A1A1A',
   /** Dark gray for headers and navigation */
-  gray: '#1C2A2E',
-  /** Calendar and picker backgrounds */
-  surface: '#2A2A2A',
-  /** Darker surface for calendar */
-  surfaceDark: '#222222',
+  gray: '#1A1A1A',
+  /** Surface for inputs and interactive elements */
+  surface: '#252525',
+  /** Darker surface variant */
+  surfaceDark: '#1E1E1E',
 } as const;
 
 /**
- * Feedback colors - For status and interactive states
+ * Feedback colors - For status indicators
  */
 export const feedback = {
   success: {
-    light: '#C6F6D5',
-    base: '#48BB78',
-    dark: '#276749',
+    light: '#DCFCE7',
+    base: '#22C55E',
+    dark: '#166534',
   },
   warning: {
-    light: '#FEFCBF',
-    base: '#ECC94B',
-    dark: '#B7791F',
+    light: '#FEF9C3',
+    base: '#EAB308',
+    dark: '#A16207',
   },
   error: {
-    light: '#FED7D7',
-    base: '#FC8181',
-    dark: '#C53030',
+    light: '#FEE2E2',
+    base: '#EF4444',
+    dark: '#B91C1C',
   },
   info: {
-    light: '#BEE3F8',
-    base: '#63B3ED',
-    dark: '#2B6CB0',
+    light: '#DBEAFE',
+    base: '#3B82F6',
+    dark: '#1D4ED8',
   },
 } as const;
 
 /**
- * Accent colors - Secondary accent and utility colors
+ * Accent colors - Minimal set for special UI needs
  */
 export const accent = {
-  orange: '#ED8936',
-  blue: '#4299E1',
-  purple: '#9F7AEA',
-  pink: '#ED64A6',
-} as const;
-
-/**
- * Legacy colors - For backward compatibility
- * These map old color names to new values
- */
-export const legacy = {
-  /** Original DRAWER teal with opacity */
-  drawerGreen: 'rgba(0, 128, 128, 0.8)',
-  /** Brighter teal for text and icons */
-  drawerGreenText: '#4FD1C5',
-  /** Dark gray background */
-  drawerGray: '#1C2A2E',
-  /** White with slight transparency */
-  drawerWhite: 'rgba(255, 255, 255, 0.9)',
-  /** Body text for light mode */
-  bodyText: '#3F3939',
-  /** Light background colors */
-  lightBlue: '#A1CFF0',
-  lightRed: '#F88D8D',
-  lightGreen: '#87C492',
-  lightYellow: '#FFF3C0',
+  blue: '#3B82F6',
+  red: '#EF4444',
+  green: '#22C55E',
+  orange: '#F97316',
 } as const;
 
 /**
@@ -136,10 +98,8 @@ export const alpha = {
   100: 1,
 } as const;
 
-export type TealScale = typeof teal;
 export type NeutralScale = typeof neutral;
 export type DarkNeutralScale = typeof darkNeutral;
 export type FeedbackColors = typeof feedback;
 export type AccentColors = typeof accent;
-export type LegacyColors = typeof legacy;
 export type AlphaScale = typeof alpha;

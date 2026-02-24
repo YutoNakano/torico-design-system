@@ -7,7 +7,7 @@
  * @example
  * ```ts
  * // Import specific token groups
- * import { teal, spacing, typography } from '@torico/design-system/tokens';
+ * import { neutral, spacing, typography } from '@torico/design-system/tokens';
  *
  * // Import themes
  * import { darkTheme, lightTheme } from '@torico/design-system/tokens';
@@ -23,19 +23,15 @@
 
 // Colors
 export {
-  teal,
   neutral,
   darkNeutral,
   feedback,
   accent,
-  legacy,
   alpha,
-  type TealScale,
   type NeutralScale,
   type DarkNeutralScale,
   type FeedbackColors,
   type AccentColors,
-  type LegacyColors,
   type AlphaScale,
 } from './primitives/colors';
 
@@ -177,7 +173,6 @@ export {
 export const tokens = {
   // Primitives
   colors: {
-    teal: {} as typeof import('./primitives/colors').teal,
     neutral: {} as typeof import('./primitives/colors').neutral,
     darkNeutral: {} as typeof import('./primitives/colors').darkNeutral,
     feedback: {} as typeof import('./primitives/colors').feedback,
