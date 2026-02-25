@@ -222,12 +222,29 @@ The web uses `#4A9B8E` instead of `#4FD1C5` because:
 - Works well with 8pt grid systems
 - Commonly found pattern in existing codebase
 
+## Pattern Catalog
+
+The `patterns/` directory contains reusable UI patterns with token-only code examples. These serve as AI-readable design documentation — the AI-era equivalent of Storybook.
+
+| Pattern | File |
+|---------|------|
+| Screen Layouts | [patterns/screen-layouts.md](patterns/screen-layouts.md) |
+| Cards | [patterns/cards.md](patterns/cards.md) |
+| Lists | [patterns/lists.md](patterns/lists.md) |
+| Buttons | [patterns/buttons.md](patterns/buttons.md) |
+| Forms | [patterns/forms.md](patterns/forms.md) |
+| Feedback | [patterns/feedback.md](patterns/feedback.md) |
+| Navigation | [patterns/navigation.md](patterns/navigation.md) |
+
+See `CLAUDE.md` for the complete AI agent guide including token reference, decision rules, and anti-patterns.
+
+## AI-Native Design Philosophy
+
+See [discussions/ai-native-design-philosophy.md](discussions/ai-native-design-philosophy.md) for the rationale behind this documentation-as-guardrails approach.
+
 ## Future Plans
 
-- [ ] Component library (Button, TextInput, Modal, etc.)
-- [ ] Storybook documentation
 - [ ] Visual regression testing
-- [ ] Figma plugin for token sync
 - [ ] CLI tool for migration assistance
 
 ## Contributing
