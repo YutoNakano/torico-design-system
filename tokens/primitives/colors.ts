@@ -30,12 +30,12 @@ export const neutral = {
  * Clean and minimal to let character assets provide color
  */
 export const darkNeutral = {
-  /** Primary app background */
-  background: '#0C0C0C',
-  /** Secondary background */
-  backgroundSecondary: '#141414',
-  /** Tertiary background */
-  backgroundTertiary: '#1A1A1A',
+  /** Primary app background (iOS systemBackground) */
+  background: '#000000',
+  /** Secondary background - iOS secondarySystemBackground dark mode */
+  backgroundSecondary: '#1C1C1E',
+  /** Tertiary background - iOS tertiarySystemBackground dark mode */
+  backgroundTertiary: '#2C2C2E',
   /** Dark gray for headers and navigation */
   gray: '#1A1A1A',
   /** Surface for inputs and interactive elements */
@@ -74,10 +74,52 @@ export const feedback = {
  * Accent colors - Minimal set for special UI needs
  */
 export const accent = {
-  blue: '#3B82F6',
-  red: '#EF4444',
-  green: '#22C55E',
-  orange: '#F97316',
+  orange: '#ED8936',
+  blue: '#4299E1',
+  purple: '#9F7AEA',
+  pink: '#ED64A6',
+  teal: '#4FD1C5',
+} as const;
+
+/**
+ * Pastel colors - Soft category/label colors
+ */
+export const pastel = {
+  blue: '#A1CFF0',
+  red: '#F88D8D',
+  green: '#87C492',
+  yellow: '#FFF3C0',
+} as const;
+
+/**
+ * Drawer brand-specific color variants
+ */
+export const drawer = {
+  green: '#4FD1C5',
+  gray: '#726E6E',
+  white: 'rgba(255, 255, 255, 0.9)',
+} as const;
+
+/**
+ * Legacy colors - For backward compatibility
+ * These map old color names to new values
+ */
+export const legacy = {
+  /** Original DRAWER teal with opacity */
+  drawerGreen: 'rgba(0, 128, 128, 0.8)',
+  /** Brighter teal for text and icons */
+  drawerGreenText: '#4FD1C5',
+  /** Dark gray background */
+  drawerGray: '#1C2A2E',
+  /** White with slight transparency */
+  drawerWhite: 'rgba(255, 255, 255, 0.9)',
+  /** Body text for light mode */
+  bodyText: '#3F3939',
+  /** Light background colors */
+  lightBlue: '#A1CFF0',
+  lightRed: '#F88D8D',
+  lightGreen: '#87C492',
+  lightYellow: '#FFF3C0',
 } as const;
 
 /**
@@ -103,3 +145,5 @@ export type DarkNeutralScale = typeof darkNeutral;
 export type FeedbackColors = typeof feedback;
 export type AccentColors = typeof accent;
 export type AlphaScale = typeof alpha;
+export type PastelColors = typeof pastel;
+export type DrawerColors = typeof drawer;

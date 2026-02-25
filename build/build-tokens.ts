@@ -99,12 +99,22 @@ const tailwindColors: Record<string, string> = {
   'neutral-900': '#141414',
   'neutral-950': '#0C0C0C',
 
-  // Dark app backgrounds
-  'app-background': '#0C0C0C',
-  'app-secondary': '#141414',
-  'app-tertiary': '#1A1A1A',
-  'app-surface': '#252525',
-  'app-gray': '#1A1A1A',
+  // Drawer brand colors
+  'drawer-green': '#4FD1C5',
+  'drawer-gray': '#726E6E',
+
+  // Pastel category colors
+  'pastel-blue': '#A1CFF0',
+  'pastel-red': '#F88D8D',
+  'pastel-green': '#87C492',
+  'pastel-yellow': '#FFF3C0',
+
+  // Dark app colors (iOS system backgrounds)
+  'app-background': '#000000',
+  'app-secondary': '#1C1C1E',
+  'app-tertiary': '#2C2C2E',
+  'app-surface': '#2A2A2A',
+  'app-gray': '#1C2A2E',
 
   // Feedback colors
   'success': '#22C55E',

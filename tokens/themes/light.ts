@@ -5,7 +5,7 @@
  * Neutral-first: black interactive elements on white backgrounds.
  */
 
-import { neutral, feedback } from '../primitives/colors';
+import { teal, neutral, feedback, pastel } from '../primitives/colors';
 
 /**
  * Light theme color palette
@@ -27,9 +27,9 @@ export const lightTheme = {
    * Background colors - Light surfaces
    */
   background: {
-    primary: neutral[0], // #FFFFFF
-    secondary: neutral[50], // #FAFAFA
-    tertiary: neutral[100], // #F5F5F5
+    primary: neutral[0], // #FFFFFF (iOS systemBackground)
+    secondary: '#F2F2F7', // iOS secondarySystemBackground
+    tertiary: neutral[0], // #FFFFFF (iOS tertiarySystemBackground)
     card: neutral[0],
     cardSolid: neutral[0],
     surface: neutral[50],
@@ -123,6 +123,30 @@ export const lightTheme = {
     brand: neutral[900],
     inverse: neutral[0],
     onLight: neutral[900],
+  },
+
+  /**
+   * DRAWER Green - Light mode overrides (darker teal for contrast on white)
+   */
+  drawerGreen: {
+    primary: teal[500],           // #319795
+    primaryHover: teal[600],      // #2C7A7B
+    primaryPressed: teal[700],    // #285E61
+    primaryDisabled: teal[200],   // #81E6D9
+    text: teal[600],              // #2C7A7B
+    muted: teal[400],             // #38B2AC
+    tint: 'rgba(49, 151, 149, 0.1)',
+    tintMedium: 'rgba(49, 151, 149, 0.2)',
+  },
+
+  /**
+   * Category colors - Same pastels work on both backgrounds
+   */
+  categoryColors: {
+    blue: pastel.blue,
+    red: pastel.red,
+    green: pastel.green,
+    yellow: pastel.yellow,
   },
 } as const;
 

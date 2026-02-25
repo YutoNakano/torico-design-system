@@ -28,11 +28,16 @@ export {
   feedback,
   accent,
   alpha,
+  pastel,
+  drawer,
+  type TealScale,
   type NeutralScale,
   type DarkNeutralScale,
   type FeedbackColors,
   type AccentColors,
   type AlphaScale,
+  type PastelColors,
+  type DrawerColors,
 } from './primitives/colors';
 
 // Typography
@@ -112,6 +117,8 @@ export {
   interactive,
   feedbackColors,
   icon,
+  drawerGreen,
+  categoryColors,
   semanticColors,
   type BrandColors,
   type BackgroundColors,
@@ -120,6 +127,8 @@ export {
   type InteractiveColors,
   type FeedbackSemanticColors,
   type IconColors,
+  type DrawerGreenColors,
+  type CategoryColors,
   type SemanticColors,
 } from './semantic/colors';
 

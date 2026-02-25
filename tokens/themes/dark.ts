@@ -13,6 +13,8 @@ import {
   interactive,
   feedbackColors,
   icon,
+  drawerGreen,
+  categoryColors,
 } from '../semantic/colors';
 
 /**
@@ -27,6 +29,8 @@ export const darkTheme = {
   interactive,
   feedback: feedbackColors,
   icon,
+  drawerGreen,
+  categoryColors,
 } as const;
 
 export type DarkTheme = typeof darkTheme;

@@ -8,7 +8,7 @@
  * Light theme overrides are in themes/light.ts.
  */
 
-import { neutral, darkNeutral, feedback, alpha } from '../primitives/colors';
+import { teal, neutral, darkNeutral, feedback, alpha, pastel } from '../primitives/colors';
 
 /**
  * Brand colors - Neutral-first identity
@@ -35,7 +35,7 @@ export const brand = {
  */
 export const background = {
   /** Primary app background */
-  primary: darkNeutral.background, // #0C0C0C
+  primary: darkNeutral.background, // #000000
   /** Secondary background for sheets/modals */
   secondary: darkNeutral.backgroundSecondary,
   /** Tertiary background for elevated cards */
@@ -183,6 +183,31 @@ export const icon = {
 } as const;
 
 /**
+ * DRAWER Green - Teal accent for the DRAWER brand identity
+ * Dark-mode defaults; light theme overrides in themes/light.ts
+ */
+export const drawerGreen = {
+  primary: teal[300],           // #4FD1C5
+  primaryHover: teal[400],      // #38B2AC
+  primaryPressed: teal[500],    // #319795
+  primaryDisabled: teal[700],   // #285E61
+  text: teal[300],              // #4FD1C5
+  muted: teal[600],             // #2C7A7B
+  tint: 'rgba(79, 209, 197, 0.1)',
+  tintMedium: 'rgba(79, 209, 197, 0.2)',
+} as const;
+
+/**
+ * Category colors - Pastel tones for note/category labels
+ */
+export const categoryColors = {
+  blue: pastel.blue,       // #A1CFF0
+  red: pastel.red,         // #F88D8D
+  green: pastel.green,     // #87C492
+  yellow: pastel.yellow,   // #FFF3C0
+} as const;
+
+/**
  * Semantic color tokens combined
  */
 export const semanticColors = {
@@ -193,6 +218,8 @@ export const semanticColors = {
   interactive,
   feedback: feedbackColors,
   icon,
+  drawerGreen,
+  categoryColors,
 } as const;
 
 export type BrandColors = typeof brand;
@@ -202,4 +229,6 @@ export type BorderColors = typeof border;
 export type InteractiveColors = typeof interactive;
 export type FeedbackSemanticColors = typeof feedbackColors;
 export type IconColors = typeof icon;
+export type DrawerGreenColors = typeof drawerGreen;
+export type CategoryColors = typeof categoryColors;
 export type SemanticColors = typeof semanticColors;
