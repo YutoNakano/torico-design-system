@@ -15,12 +15,12 @@ flowchart TD
     subgraph problem[" "]
         direction TB
         AI[AI Agent]
-        AI -->|"Build settings"| S1["bg: #1a1a2e\npadding: 20\nfont: 15px\nradius: 10"]
-        AI -->|"Build profile"| S2["bg: #162447\npadding: 16\nfont: 14px\nradius: 8"]
-        AI -->|"Build chat"| S3["bg: #1C1C1E\npadding: 12\nfont: 13px\nradius: 6"]
+        AI -->|"Build settings"| S1["bg: #1a1a2e<br/>padding: 20<br/>font: 15px<br/>radius: 10"]
+        AI -->|"Build profile"| S2["bg: #162447<br/>padding: 16<br/>font: 14px<br/>radius: 8"]
+        AI -->|"Build chat"| S3["bg: #1C1C1E<br/>padding: 12<br/>font: 13px<br/>radius: 6"]
     end
 
-    S1 & S2 & S3 --> D["Every screen diverges\nNo unity across the product"]
+    S1 & S2 & S3 --> D["Every screen diverges<br/>No unity across the product"]
 
     style problem fill:#1C1C1E,stroke:#FC8181,color:#FFFFFF
     style D fill:#2D1B1B,color:#FC8181,stroke:#FC8181
