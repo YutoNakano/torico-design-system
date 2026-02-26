@@ -2,9 +2,11 @@
 
 [**View Token Reference**](https://yutonakano.github.io/torico-design-system/) | [**AI Agent Guide (CLAUDE.md)**](CLAUDE.md)
 
-Single source of truth for all TORICO products (DRAWER, Shunsaku). Tokens for colors, typography, spacing, and shape across React Native and web.
+One place for all design values (colors, fonts, spacing, shapes) used by DRAWER and Shunsaku apps. Works with React Native and web.
 
-## Why This Design System?
+## Why?
+
+Without shared rules, AI agents pick different values each time. Screens stop looking like they belong together.
 
 ```mermaid
 flowchart TD
@@ -16,7 +18,7 @@ flowchart TD
         AI -->|"Build chat"| S3["bg: #1C1C1E<br/>padding: 12<br/>font: 13px<br/>radius: 6"]
     end
 
-    S1 & S2 & S3 --> D["Every screen diverges<br/>No unity across the product"]
+    S1 & S2 & S3 --> D["Every screen looks different"]
 
     style problem fill:#1C1C1E,stroke:#FC8181,color:#FFFFFF
     style D fill:#2D1B1B,color:#FC8181,stroke:#FC8181
@@ -25,9 +27,9 @@ flowchart TD
     style S3 fill:#2C2C2E,color:#FFFFFF,stroke:#555
 ```
 
-`CLAUDE.md` + `patterns/` give AI agents guardrails so every generated screen uses the same tokens — consistent UI without manual review.
+`CLAUDE.md` + `patterns/` tell AI agents which values to use. Every screen stays consistent — no manual checking needed.
 
-## Design Process
+## How It Works
 
 ```mermaid
 sequenceDiagram
@@ -40,33 +42,33 @@ sequenceDiagram
 
     R->>AI: Natural language request
     AI->>DS: Read tokens & patterns
-    DS-->>AI: Guardrails + code examples
-    AI->>AI: Generate implementation
+    DS-->>AI: Rules + code examples
+    AI->>AI: Build UI
     AI->>F: Output for ideation
-    F->>AI: Refined design direction
-    AI->>AI: Generate final implementation
+    F->>AI: Design feedback
+    AI->>AI: Update UI
     AI->>R: Review & ship
-    Note over R,F: Human explores visual ideas in Figma using AI output as starting point
-    Note over R,DS: Any team member can request UI work via natural language
+    Note over R,F: Humans explore ideas in Figma using AI output as a starting point
+    Note over R,DS: Anyone can request UI work in plain language
 ```
 
 ```mermaid
 flowchart LR
     subgraph Inputs["Data Sources"]
         FS[(Firestore<br/>Schema)]
-        AN[Analytics &<br/>Usage Patterns]
+        AN[Analytics &<br/>Usage Data]
         CB[Existing<br/>Codebase]
         DS[Design System<br/>Tokens]
     end
 
     subgraph Agent["AI Agent"]
         direction TB
-        R[Read & Synthesize] --> D[Make Data-Informed<br/>Design Decisions]
+        R[Read all sources] --> D[Make design<br/>decisions]
     end
 
-    subgraph Output["Implementation"]
-        UI[Consistent UI<br/>with Token Compliance]
-        CX[Context-Aware<br/>Layout Decisions]
+    subgraph Output["Result"]
+        UI[Consistent UI]
+        CX[Smart layout<br/>choices]
     end
 
     FS --> Agent
@@ -80,22 +82,22 @@ flowchart LR
     style Agent fill:#1C2A2E,color:#FFFFFF,stroke:#4FD1C5
 ```
 
-## Architecture
+## Folder Structure
 
 ```
 ├── tokens/
-│   ├── primitives/          # Raw design values
-│   ├── semantic/            # Context-aware tokens
+│   ├── primitives/          # Base values
+│   ├── semantic/            # Named tokens (e.g. text.primary)
 │   └── themes/              # Light / dark
-├── assets/                  # Character illustrations
-├── patterns/                # AI-readable UI pattern docs
+├── assets/                  # Character images
+├── patterns/                # UI pattern docs for AI
 ├── build/
-│   └── build-tokens.ts      # Generate platform outputs
+│   └── build-tokens.ts      # Build script
 └── dist/
     ├── native/              # React Native output
     ├── web/                 # Tailwind + CSS output
-    ├── types/               # TypeScript declarations
-    └── reference.html       # Visual token reference page
+    ├── types/               # TypeScript types
+    └── reference.html       # Visual reference page
 ```
 
 ## Usage
@@ -154,7 +156,7 @@ npm install
 npm run build:tokens
 ```
 
-## Pattern Catalog
+## Patterns
 
 | Pattern | File |
 |---------|------|
