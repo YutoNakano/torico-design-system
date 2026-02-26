@@ -4,6 +4,46 @@
 
 The single source of truth for all TORICO products (DRAWER, Shunsaku/Instant Output). This design system provides shared design tokens, typography, spacing, and color definitions across React Native and web platforms.
 
+## Why This Design System?
+
+### The Problem: AI Without Guardrails
+
+Without a design system, every AI-generated screen picks its own values. Over dozens of requests, the product loses all visual consistency.
+
+```mermaid
+flowchart TD
+    subgraph problem[" "]
+        direction TB
+        AI[AI Agent]
+        AI -->|"Build settings"| S1["bg: #1a1a2e\npadding: 20\nfont: 15px\nradius: 10"]
+        AI -->|"Build profile"| S2["bg: #162447\npadding: 16\nfont: 14px\nradius: 8"]
+        AI -->|"Build chat"| S3["bg: #1C1C1E\npadding: 12\nfont: 13px\nradius: 6"]
+    end
+
+    S1 & S2 & S3 --> D["Every screen diverges\nNo unity across the product"]
+
+    style problem fill:#1C1C1E,stroke:#FC8181,color:#FFFFFF
+    style D fill:#2D1B1B,color:#FC8181,stroke:#FC8181
+    style S1 fill:#2C2C2E,color:#FFFFFF,stroke:#555
+    style S2 fill:#2C2C2E,color:#FFFFFF,stroke:#555
+    style S3 fill:#2C2C2E,color:#FFFFFF,stroke:#555
+```
+
+Before this design system, TORICO products had:
+
+1. **Inconsistent Design Values**: Colors, typography, spacing, and other design values were hardcoded throughout the codebase with no standard format or central definition
+2. **No Single Source of Truth**: The same values were duplicated and diverged across components, making it impossible to evolve the design cohesively
+3. **Platform Fragmentation**: Native apps and web maintained separate, duplicated definitions — changes had to be made in multiple places and inevitably drifted apart
+
+### What This Design System Provides
+
+- **Neutral-First Design**: UI chrome uses neutral colors; brand personality comes from character illustrations and teal accents — not from painting every surface teal
+- **Single Source of Truth**: All design values defined once, consumed by React Native, Tailwind, and CSS
+- **AI-Native Workflow**: `CLAUDE.md` + `patterns/` provide guardrails so any team member can request UI work via natural language and get token-compliant output
+- **Type Safety**: Full TypeScript support with autocompletion
+- **Semantic Tokens**: Context-aware colors (e.g., `text.primary` vs raw `#FFFFFF`)
+- **Character Assets**: Shared character illustrations exported for all platforms via `@torico/design-system/assets`
+
 ## Design Process
 
 See [discussions/ai-native-design-philosophy.md](discussions/ai-native-design-philosophy.md) for the full rationale behind this documentation-as-guardrails approach.
@@ -21,10 +61,8 @@ sequenceDiagram
     AI->>DS: Read tokens & patterns
     DS-->>AI: Guardrails + code examples
     AI->>AI: Generate implementation
-    AI->>R: Output for review
-    R->>F: Ideate based on AI output
-    F-->>R: Refined design direction
-    R->>AI: Updated request with design intent
+    AI->>F: Output for ideation
+    F->>AI: Refined design direction
     AI->>AI: Generate final implementation
     AI->>R: Review & ship
     Note over R,F: Human explores visual ideas in Figma using AI output as starting point
@@ -62,25 +100,6 @@ flowchart LR
     style DS fill:#314A4A,color:#4FD1C5,stroke:#4FD1C5
     style Agent fill:#1C2A2E,color:#FFFFFF,stroke:#4FD1C5
 ```
-
-## Why This Design System?
-
-### The Problem We Solved
-
-Before this design system, TORICO products had:
-
-1. **Inconsistent Design Values**: Colors, typography, spacing, and other design values were hardcoded throughout the codebase with no standard format or central definition
-2. **No Single Source of Truth**: The same values were duplicated and diverged across components, making it impossible to evolve the design cohesively
-3. **Platform Fragmentation**: Native apps and web maintained separate, duplicated definitions — changes had to be made in multiple places and inevitably drifted apart
-
-### What This Design System Provides
-
-- **Neutral-First Design**: UI chrome uses neutral colors; brand personality comes from character illustrations and teal accents — not from painting every surface teal
-- **Single Source of Truth**: All design values defined once, consumed by React Native, Tailwind, and CSS
-- **AI-Native Workflow**: `CLAUDE.md` + `patterns/` provide guardrails so any team member can request UI work via natural language and get token-compliant output
-- **Type Safety**: Full TypeScript support with autocompletion
-- **Semantic Tokens**: Context-aware colors (e.g., `text.primary` vs raw `#FFFFFF`)
-- **Character Assets**: Shared character illustrations exported for all platforms via `@torico/design-system/assets`
 
 ## Architecture
 
