@@ -404,6 +404,134 @@ function renderShadowSwatches(shadows: Record<string, string>): string {
     .join('\n');
 }
 
+function renderDesignPrinciples(): string {
+  return `
+<h2>Design Principles</h2>
+
+<div class="principles-grid">
+  <div class="principle-card">
+    <div class="principle-header">
+      <span class="principle-number">1</span>
+      <span class="principle-name">Simple</span>
+    </div>
+    <p class="principle-desc">Curate features and information ruthlessly. Fewer elements, clearer purpose. A fundamental principle across all design.</p>
+    <div class="principle-demos">
+      <div class="principle-demo" style="background:#fff;border-color:#ddd">
+        <div class="principle-demo-label good">Good — focused</div>
+        <div style="text-align:center;padding:16px 0 12px">
+          <div style="font-size:22px;font-weight:600;margin-bottom:12px"><span style="color:#4285F4">G</span><span style="color:#EA4335">o</span><span style="color:#FBBC05">o</span><span style="color:#4285F4">g</span><span style="color:#34A853">l</span><span style="color:#EA4335">e</span></div>
+          <div style="border:1px solid #ddd;border-radius:24px;padding:8px 16px;max-width:200px;margin:0 auto;font-size:11px;color:#bbb;text-align:left">Search</div>
+        </div>
+        <p class="demo-text-sm" style="color:#666">One input, one purpose</p>
+      </div>
+      <div class="principle-demo" style="display:flex;flex-direction:column">
+        <div class="principle-demo-label bad">Bad — cluttered</div>
+        <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:10px">
+          <div style="background:#222;border-radius:6px;padding:6px 10px;font-size:10px;color:#EAB308">Special offer! Upgrade now for 50% off</div>
+          <div style="display:flex;gap:6px">
+            <span class="demo-btn equal" style="font-size:10px;padding:6px 10px;border-radius:8px">Search</span>
+            <span class="demo-btn equal" style="font-size:10px;padding:6px 10px;border-radius:8px">Filter</span>
+            <span class="demo-btn equal" style="font-size:10px;padding:6px 10px;border-radius:8px">Sort</span>
+          </div>
+          <div style="display:flex;gap:5px;flex-wrap:wrap">
+            <span style="font-size:9px;background:#333;padding:4px 8px;border-radius:4px;color:#999">Tag 1</span>
+            <span style="font-size:9px;background:#333;padding:4px 8px;border-radius:4px;color:#999">Tag 2</span>
+            <span style="font-size:9px;background:#333;padding:4px 8px;border-radius:4px;color:#999">Tag 3</span>
+            <span style="font-size:9px;background:#333;padding:4px 8px;border-radius:4px;color:#999">Tag 4</span>
+            <span style="font-size:9px;background:#333;padding:4px 8px;border-radius:4px;color:#999">+5</span>
+          </div>
+          <div style="display:flex;gap:6px">
+            <div style="flex:1;background:#222;border-radius:6px;padding:6px 8px;font-size:9px;color:#666">Tip of the day...</div>
+            <div style="flex:1;background:#222;border-radius:6px;padding:6px 8px;font-size:9px;color:#666">What's new</div>
+          </div>
+        </div>
+        <p class="demo-text-sm" style="margin-top:8px">Everything visible, nothing clear</p>
+      </div>
+    </div>
+    <ul class="principle-criteria">
+      <li>Can you remove this element without losing meaning?</li>
+      <li>Is each screen focused on one primary task?</li>
+      <li>Are you showing information at the right time, not all at once?</li>
+    </ul>
+  </div>
+
+  <div class="principle-card">
+    <div class="principle-header">
+      <span class="principle-number">2</span>
+      <span class="principle-name">Consistent</span>
+    </div>
+    <p class="principle-desc">Same experience across products. Follow tokens and patterns.</p>
+    <div class="principle-demos">
+      <div class="principle-demo">
+        <div class="principle-demo-label good">Good — same tokens</div>
+        <div class="demo-cards-row">
+          <div class="demo-card"><div class="demo-card-title">DRAWER</div><div class="demo-card-text">radii.xl + cardPadding</div></div>
+          <div class="demo-card"><div class="demo-card-title">Shunsaku</div><div class="demo-card-text">radii.xl + cardPadding</div></div>
+        </div>
+      </div>
+      <div class="principle-demo">
+        <div class="principle-demo-label bad">Bad — inconsistent values</div>
+        <div class="demo-cards-row">
+          <div class="demo-card inconsistent-1"><div class="demo-card-title">Screen A</div><div class="demo-card-text">radius: 8, pad: 8</div></div>
+          <div class="demo-card inconsistent-2"><div class="demo-card-title">Screen B</div><div class="demo-card-text">radius: 20, pad: 16</div></div>
+        </div>
+      </div>
+    </div>
+    <ul class="principle-criteria">
+      <li>Does an existing pattern cover this? Use it as-is</li>
+      <li>Can it be expressed with tokens? Don't create new values</li>
+      <li>Does it align across DRAWER / Shunsaku / EnglishJournal?</li>
+    </ul>
+  </div>
+
+</div>
+
+<h3>Visual Style</h3>
+<div class="visual-style-grid">
+  <div class="style-panel dark">
+    <h4>Native Apps</h4>
+    <ul>
+      <li>Minimal dark — black base, content stands out</li>
+      <li>iOS-native — system conventions, gestures, safe areas</li>
+      <li>Teal accent — used sparingly</li>
+    </ul>
+    <div><span class="accent-swatch" style="background:#4FD1C5"></span><code>#4FD1C5</code></div>
+  </div>
+  <div class="style-panel light">
+    <h4>Web</h4>
+    <ul>
+      <li>Clean modern — generous whitespace</li>
+      <li>Light theme — landing pages, coach dashboard</li>
+      <li>Web accent — ensures contrast on light backgrounds</li>
+    </ul>
+    <div><span class="accent-swatch" style="background:#4A9B8E"></span><code style="background:#f0f0f0">#4A9B8E</code></div>
+  </div>
+</div>
+
+<h3>Animation Policy</h3>
+<div class="animation-rules">
+  <div class="rule-col allowed">
+    <h4>Allowed</h4>
+    <ul>
+      <li>200ms default duration + ease</li>
+      <li>Fade in + subtle upward slide (8px max)</li>
+      <li>Fade out only (150ms fast)</li>
+      <li>Spring animation for tactile feedback</li>
+    </ul>
+  </div>
+  <div class="rule-col forbidden">
+    <h4>Forbidden</h4>
+    <ul>
+      <li>Rotation effects</li>
+      <li>Bounce animations</li>
+      <li>Excessive scale changes</li>
+      <li>Transitions over 300ms</li>
+    </ul>
+  </div>
+</div>
+`;
+}
+
 // Group colors by category based on prefix
 const colorGroups: Record<string, Record<string, string>> = {};
 for (const [key, value] of Object.entries(tailwindColors)) {
@@ -455,11 +583,77 @@ const referenceHtml = `<!DOCTYPE html>
   .shadow-grid { display: flex; gap: 24px; flex-wrap: wrap; }
   .shadow-item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
   .shadow-box { width: 72px; height: 72px; background: #1a1a1a; border-radius: 8px; }
+
+  .principles-grid { display: flex; flex-direction: column; gap: 16px; }
+  .principle-card { background: #1a1a1a; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+  .principle-header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 12px; }
+  .principle-number { font-size: 32px; font-weight: 700; color: #4FD1C5; line-height: 1; }
+  .principle-name { font-size: 18px; font-weight: 700; color: #e0e0e0; }
+  .principle-desc { font-size: 14px; color: #999; margin-bottom: 16px; }
+  .principle-examples { display: flex; gap: 16px; margin-bottom: 16px; flex-wrap: wrap; }
+  .principle-example { font-size: 13px; }
+  .principle-example.good::before { content: '\\2713 '; color: #22C55E; font-weight: 700; }
+  .principle-example.bad::before { content: '\\2717 '; color: #EF4444; font-weight: 700; }
+  .principle-criteria { list-style: none; padding: 0; }
+  .principle-criteria li { font-size: 13px; color: #999; padding: 2px 0; padding-left: 16px; position: relative; }
+  .principle-criteria li::before { content: ''; position: absolute; left: 0; top: 9px; width: 6px; height: 6px; border-radius: 50%; background: #4FD1C5; }
+
+  .principle-demos { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+  .principle-demo { background: #111; border: 1px solid #222; border-radius: 8px; padding: 16px; }
+  .principle-demo-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+  .principle-demo-label.good { color: #22C55E; }
+  .principle-demo-label.bad { color: #EF4444; }
+  .demo-btn { display: inline-block; padding: 8px 16px; border-radius: 12px; font-size: 12px; font-weight: 600; text-align: center; }
+  .demo-btn.primary { background: #4FD1C5; color: #000; }
+  .demo-btn.ghost { background: transparent; border: 1px solid #333; color: #999; }
+  .demo-btn.equal { background: #4FD1C5; color: #000; }
+  .demo-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+  .demo-card { background: #2C2C2E; border-radius: 16px; padding: 12px; }
+  .demo-card-title { font-size: 11px; font-weight: 600; margin-bottom: 4px; }
+  .demo-card-text { font-size: 10px; color: #999; }
+  .demo-card.inconsistent-1 { border-radius: 8px; padding: 8px; }
+  .demo-card.inconsistent-2 { border-radius: 20px; padding: 16px; }
+  .demo-cards-row { display: flex; gap: 8px; }
+  .demo-cards-row .demo-card { flex: 1; }
+  .demo-completion { display: flex; align-items: center; gap: 8px; }
+  .demo-check { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+  .demo-check.subtle { background: #166534; color: #22C55E; }
+  .demo-check.flashy { background: #EF4444; color: #fff; font-size: 16px; }
+  .demo-bar { height: 4px; border-radius: 2px; flex: 1; }
+  .demo-bar.filled { background: #4FD1C5; }
+  .demo-bar.flash { background: linear-gradient(90deg, #EF4444, #EAB308, #22C55E, #3B82F6, #A855F7); }
+  .demo-text-sm { font-size: 11px; color: #999; }
+  @keyframes demo-pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.6; } }
+  .demo-flashy-text { animation: demo-pulse 0.5s infinite; font-weight: 900; font-size: 14px; color: #EF4444; }
+
+  .visual-style-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .style-panel { border-radius: 12px; padding: 24px; border: 1px solid #222; }
+  .style-panel.dark { background: #000; color: #e0e0e0; }
+  .style-panel.light { background: #fff; color: #141414; }
+  .style-panel h4 { font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .style-panel ul { list-style: none; padding: 0; font-size: 13px; margin-bottom: 12px; }
+  .style-panel ul li { padding: 2px 0; }
+  .style-panel .accent-swatch { display: inline-block; width: 14px; height: 14px; border-radius: 4px; vertical-align: middle; margin-right: 6px; }
+
+  .animation-rules { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .animation-rules .rule-col { background: #1a1a1a; border: 1px solid #222; border-radius: 12px; padding: 20px; }
+  .animation-rules .rule-col h4 { font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .animation-rules .rule-col.allowed h4 { color: #22C55E; }
+  .animation-rules .rule-col.forbidden h4 { color: #EF4444; }
+  .animation-rules .rule-col ul { list-style: none; padding: 0; font-size: 13px; color: #999; }
+  .animation-rules .rule-col ul li { padding: 3px 0; }
+
+  @media (max-width: 600px) {
+    .visual-style-grid, .animation-rules { grid-template-columns: 1fr; }
+    .principle-examples { flex-direction: column; gap: 4px; }
+  }
 </style>
 </head>
 <body>
 <h1>TORICO Design System</h1>
 <p class="subtitle">Token reference — generated ${timestamp}</p>
+
+${renderDesignPrinciples()}
 
 <h2>Colors</h2>
 ${colorSections}
