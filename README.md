@@ -14,13 +14,20 @@ sequenceDiagram
     participant R as Requirements
     participant AI as AI Agent
     participant DS as Design System<br/>(CLAUDE.md + patterns/)
+    participant F as Figma<br/>(Human Ideation)
     end
 
     R->>AI: Natural language request
     AI->>DS: Read tokens & patterns
     DS-->>AI: Guardrails + code examples
     AI->>AI: Generate implementation
+    AI->>R: Output for review
+    R->>F: Ideate based on AI output
+    F-->>R: Refined design direction
+    R->>AI: Updated request with design intent
+    AI->>AI: Generate final implementation
     AI->>R: Review & ship
+    Note over R,F: Human explores visual ideas in Figma using AI output as starting point
     Note over R,DS: Any team member can request UI work via natural language
 ```
 
@@ -62,9 +69,9 @@ flowchart LR
 
 Before this design system, TORICO products had:
 
-1. **Inconsistent Colors**: 112+ hardcoded color references scattered across drawer-native, with no standard format (mixed hex, rgba)
-2. **No Unified Tokens**: Typography, spacing, and color values repeated everywhere with no centralized source
-3. **Platform Fragmentation**: Native apps and web had separate, duplicated definitions — impossible to evolve the design consistently
+1. **Inconsistent Design Values**: Colors, typography, spacing, and other design values were hardcoded throughout the codebase with no standard format or central definition
+2. **No Single Source of Truth**: The same values were duplicated and diverged across components, making it impossible to evolve the design cohesively
+3. **Platform Fragmentation**: Native apps and web maintained separate, duplicated definitions — changes had to be made in multiple places and inevitably drifted apart
 
 ### What This Design System Provides
 
