@@ -8,27 +8,7 @@
  * Light theme overrides are in themes/light.ts.
  */
 
-import { teal, neutral, darkNeutral, feedback, alpha, pastel } from '../primitives/colors';
-
-/**
- * Brand colors - Neutral-first identity
- * In dark mode, primary interactive color is white.
- * In light mode, primary interactive color is black (overridden in light theme).
- */
-export const brand = {
-  /** Primary brand color (white on dark) */
-  primary: neutral[0], // #FFFFFF
-  /** Primary color for hover/pressed states */
-  primaryHover: neutral[200],
-  /** Primary color for disabled states */
-  primaryMuted: neutral[500],
-  /** Secondary brand color */
-  secondary: darkNeutral.gray,
-  /** Web-specific primary */
-  webPrimary: neutral[900],
-  /** Web-specific primary dark variant */
-  webPrimaryDark: neutral[800],
-} as const;
+import { teal, neutral, darkNeutral, feedback, alpha } from '../primitives/colors';
 
 /**
  * Background colors - Surface and container backgrounds
@@ -198,20 +178,9 @@ export const drawerGreen = {
 } as const;
 
 /**
- * Category colors - Pastel tones for note/category labels
- */
-export const categoryColors = {
-  blue: pastel.blue,       // #A1CFF0
-  red: pastel.red,         // #F88D8D
-  green: pastel.green,     // #87C492
-  yellow: pastel.yellow,   // #FFF3C0
-} as const;
-
-/**
  * Semantic color tokens combined
  */
 export const semanticColors = {
-  brand,
   background,
   text,
   border,
@@ -219,10 +188,8 @@ export const semanticColors = {
   feedback: feedbackColors,
   icon,
   drawerGreen,
-  categoryColors,
 } as const;
 
-export type BrandColors = typeof brand;
 export type BackgroundColors = typeof background;
 export type TextColors = typeof text;
 export type BorderColors = typeof border;
@@ -230,5 +197,4 @@ export type InteractiveColors = typeof interactive;
 export type FeedbackSemanticColors = typeof feedbackColors;
 export type IconColors = typeof icon;
 export type DrawerGreenColors = typeof drawerGreen;
-export type CategoryColors = typeof categoryColors;
 export type SemanticColors = typeof semanticColors;

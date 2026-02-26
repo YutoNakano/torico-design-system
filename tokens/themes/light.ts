@@ -5,24 +5,12 @@
  * Neutral-first: black interactive elements on white backgrounds.
  */
 
-import { teal, neutral, feedback, pastel } from '../primitives/colors';
+import { teal, neutral, feedback } from '../primitives/colors';
 
 /**
  * Light theme color palette
  */
 export const lightTheme = {
-  /**
-   * Brand colors - Primary brand identity in light mode
-   */
-  brand: {
-    primary: neutral[900], // #141414 - black on light
-    primaryHover: neutral[700],
-    primaryMuted: neutral[400],
-    secondary: neutral[100],
-    webPrimary: neutral[900],
-    webPrimaryDark: neutral[800],
-  },
-
   /**
    * Background colors - Light surfaces
    */
@@ -139,15 +127,6 @@ export const lightTheme = {
     tintMedium: 'rgba(49, 151, 149, 0.2)',
   },
 
-  /**
-   * Category colors - Same pastels work on both backgrounds
-   */
-  categoryColors: {
-    blue: pastel.blue,
-    red: pastel.red,
-    green: pastel.green,
-    yellow: pastel.yellow,
-  },
 } as const;
 
 export type LightTheme = typeof lightTheme;

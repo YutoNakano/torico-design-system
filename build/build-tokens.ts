@@ -80,11 +80,6 @@ console.log('✓ Generated native tokens');
 
 // Color values for Tailwind
 const tailwindColors: Record<string, string> = {
-  // Brand colors (neutral-first: white on dark, black on light)
-  'brand-primary': '#FFFFFF',
-  'brand-primary-hover': '#EBEBEB',
-  'brand-secondary': '#1A1A1A',
-
   // Neutral palette
   'neutral-0': '#FFFFFF',
   'neutral-50': '#FAFAFA',
@@ -102,12 +97,6 @@ const tailwindColors: Record<string, string> = {
   // Drawer brand colors
   'drawer-green': '#4FD1C5',
   'drawer-gray': '#726E6E',
-
-  // Pastel category colors
-  'pastel-blue': '#A1CFF0',
-  'pastel-red': '#F88D8D',
-  'pastel-green': '#87C492',
-  'pastel-yellow': '#FFF3C0',
 
   // Dark app colors (iOS system backgrounds)
   'app-background': '#000000',

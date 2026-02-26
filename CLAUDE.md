@@ -33,8 +33,8 @@ borderRadius: radii.lg     // 12px
 ```typescript
 import {
   // Semantic colors
-  background, text, border, interactive, brand, icon,
-  drawerGreen, feedbackColors, categoryColors,
+  background, text, border, interactive, icon,
+  drawerGreen, feedbackColors,
   // Typography presets (spread into styles)
   display, heading, body, label, caption, button as buttonType,
   // Spacing & layout
@@ -100,9 +100,6 @@ export default {
 | `border.default` | `#333333` | Standard borders |
 | `border.subtle` | `rgba(255,255,255,0.1)` | Dividers |
 | `border.focus` | `#4FD1C5` | Focus rings |
-| `brand.primary` | `#4FD1C5` | Brand accent |
-| `brand.webPrimary` | `#4A9B8E` | Web-specific (light bg) |
-
 ### Typography Presets
 
 Spread into StyleSheet — includes fontSize, fontWeight, lineHeight, fontFamily.
@@ -242,7 +239,7 @@ See `patterns/` for full examples. Each pattern includes JSX structure, StyleShe
 - **Flat** (no background, divider only): settings rows, dense lists, inline content
 
 ### Web light vs dark?
-- Landing pages, marketing: light theme with `brand.webPrimary`
+- Landing pages, marketing: light theme with `neutral` palette
 - Coach dashboard: light backgrounds with `neutral` palette
 - Native apps: always dark theme (default tokens)
 

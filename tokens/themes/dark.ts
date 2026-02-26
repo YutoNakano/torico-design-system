@@ -6,7 +6,6 @@
  */
 
 import {
-  brand,
   background,
   text,
   border,
@@ -14,7 +13,6 @@ import {
   feedbackColors,
   icon,
   drawerGreen,
-  categoryColors,
 } from '../semantic/colors';
 
 /**
@@ -22,7 +20,6 @@ import {
  * This is the default theme for DRAWER and Instant Output apps.
  */
 export const darkTheme = {
-  brand,
   background,
   text,
   border,
@@ -30,7 +27,6 @@ export const darkTheme = {
   feedback: feedbackColors,
   icon,
   drawerGreen,
-  categoryColors,
 } as const;
 
 export type DarkTheme = typeof darkTheme;

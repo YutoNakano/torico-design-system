@@ -22,7 +22,7 @@ Scan files for hardcoded design values (colors, spacing, radii, typography) and 
 Read the following TypeScript source files (relative to the monorepo root) to build a lookup table mapping hardcoded values → token paths:
 
 - `torico-design-system/tokens/primitives/colors.ts` — teal, neutral, darkNeutral, feedback, accent, pastel palettes
-- `torico-design-system/tokens/semantic/colors.ts` — brand, background, text, border, interactive, icon, drawerGreen, categoryColors
+- `torico-design-system/tokens/semantic/colors.ts` — background, text, border, interactive, icon, drawerGreen
 - `torico-design-system/tokens/primitives/typography.ts` — fontSize, fontWeight, lineHeight scales
 - `torico-design-system/tokens/semantic/typography.ts` — display, heading, body, label, caption, button presets
 - `torico-design-system/tokens/primitives/spacing.ts` — spacing scale

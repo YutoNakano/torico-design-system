@@ -110,7 +110,6 @@ export {
 
 // Semantic Colors
 export {
-  brand,
   background,
   text,
   border,
@@ -118,9 +117,7 @@ export {
   feedbackColors,
   icon,
   drawerGreen,
-  categoryColors,
   semanticColors,
-  type BrandColors,
   type BackgroundColors,
   type TextColors,
   type BorderColors,
@@ -128,7 +125,6 @@ export {
   type FeedbackSemanticColors,
   type IconColors,
   type DrawerGreenColors,
-  type CategoryColors,
   type SemanticColors,
 } from './semantic/colors';
 
