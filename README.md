@@ -244,23 +244,7 @@ See `CLAUDE.md` for the complete AI agent guide including token reference, decis
 
 See [discussions/ai-native-design-philosophy.md](discussions/ai-native-design-philosophy.md) for the full rationale behind this documentation-as-guardrails approach.
 
-### Workflow Shift: Traditional vs AI-Native
-
-```mermaid
-sequenceDiagram
-    box rgb(60,60,60) Traditional Workflow
-    participant D as Designer
-    participant E as Engineer
-    end
-
-    D->>D: Create Figma mockup
-    D->>E: Hand off design
-    E->>E: Interpret & implement
-    E->>D: Request review
-    D->>E: Feedback & revisions
-    E->>E: Update implementation
-    Note over D,E: Bottleneck: Designer availability gates every UI change
-```
+### AI-Native Workflow
 
 ```mermaid
 sequenceDiagram
@@ -275,60 +259,7 @@ sequenceDiagram
     DS-->>AI: Guardrails + code examples
     AI->>AI: Generate implementation
     AI->>R: Review & ship
-    Note over R,DS: No design bottleneck: any team member can request UI work
-```
-
-### System Architecture: Guardrails vs Creative Freedom
-
-```mermaid
-classDiagram
-    class DesignSystem {
-        <<Guardrails>>
-        +SemanticColors tokens
-        +TypographyPresets presets
-        +SpacingScale scale
-        +BorderRadius radii
-        +Shadows elevations
-        +ComponentPatterns patterns
-        eliminateSystematicDecisions()
-    }
-
-    class StrictZone {
-        <<Token Compliance Required>>
-        Color usage
-        Typography sizing
-        Spacing values
-        Border radius
-        Screen structure
-        Card styling
-        Button styling
-    }
-
-    class CreativeZone {
-        <<Judgment Welcome>>
-        Animation choreography
-        Illustration choices
-        Content hierarchy
-        Empty state personality
-        Onboarding flow design
-        Micro-interactions
-        Data visualization
-    }
-
-    class AIAgent {
-        +readTokens()
-        +readPatterns()
-        +fetchRealData()
-        +queryCodebase()
-        +accessUserInsights()
-        generateUI()
-    }
-
-    DesignSystem --> StrictZone : enforces
-    DesignSystem --> CreativeZone : frees up
-    AIAgent --> DesignSystem : reads
-    AIAgent --> StrictZone : complies with
-    AIAgent --> CreativeZone : applies intelligence
+    Note over R,DS: Any team member can request UI work via natural language
 ```
 
 ### AI as Data-Informed Designer
@@ -361,68 +292,6 @@ flowchart LR
 
     style DS fill:#314A4A,color:#4FD1C5,stroke:#4FD1C5
     style Agent fill:#1C2A2E,color:#FFFFFF,stroke:#4FD1C5
-```
-
-### Source of Truth Evolution
-
-```mermaid
-flowchart TD
-    subgraph Before["Before (Traditional)"]
-        direction TB
-        F[Figma Files] --> DM[Designer's Memory]
-        DM --> SG[Style Guide PDF]
-        SG --> ASK["'Ask the Designer'"]
-    end
-
-    subgraph Now["Now (AI-Native)"]
-        direction TB
-        TS["@torico/design-system<br/>Token Source Code"] --> CM["CLAUDE.md +<br/>patterns/*.md"]
-        CM --> MD["Living Markdown<br/>Versioned with Code"]
-        MD --> AR["AI Reads Docs<br/>Consistently, Every Time"]
-    end
-
-    Before -- "shift" --> Now
-
-    style Now fill:#1C2A2E,color:#FFFFFF,stroke:#4FD1C5
-    style Before fill:#333,color:#CCC,stroke:#666
-```
-
-### Verification Loop
-
-```mermaid
-flowchart TD
-    A[AI Generates UI Code] --> B["/design-audit &lt;path&gt;<br/>Check token compliance"]
-    B --> C{"Violations<br/>found?"}
-    C -- Yes --> D[Fix token violations]
-    D --> B
-    C -- No --> E["Visual Review:<br/>Does it feel like DRAWER?"]
-    E --> F{"Consistent with<br/>app family?"}
-    F -- No --> G["Improve CLAUDE.md &<br/>patterns/*.md"]
-    G --> A
-    F -- Yes --> H["Cross-Prompt Test:<br/>Different AI session,<br/>same requirement"]
-    H --> I{"Output recognizably<br/>the same app?"}
-    I -- No --> G
-    I -- Yes --> J[Ship]
-
-    style J fill:#314A4A,color:#4FD1C5,stroke:#4FD1C5
-    style G fill:#4A2020,color:#FC8181,stroke:#FC8181
-```
-
-### Why Documentation Patterns over Component Library
-
-```mermaid
-quadrantChart
-    title Cost vs Consistency Trade-off
-    x-axis Low Cost --> High Cost
-    y-axis Low Consistency --> High Consistency
-    quadrant-1 Ideal but expensive
-    quadrant-2 Sweet spot
-    quadrant-3 Insufficient
-    quadrant-4 Over-engineered
-    Markdown Patterns: [0.15, 0.75]
-    Component Library: [0.8, 0.9]
-    No System: [0.05, 0.15]
-    Style Guide PDF: [0.3, 0.35]
 ```
 
 ## Future Plans
