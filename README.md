@@ -1,5 +1,7 @@
 # TORICO Design System
 
+[**View Token Reference**](https://yutonakano.github.io/torico-design-system/)
+
 The single source of truth for all TORICO products (DRAWER, Shunsaku/Instant Output). This design system provides shared design tokens, typography, spacing, and color definitions across React Native and web platforms.
 
 ## Why This Design System?
