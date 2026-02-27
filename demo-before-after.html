@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TORICO Design System — Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  /* ===== RESET ===== */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', sans-serif;
+    background: #0a0a0a;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 32px 24px;
+  }
+
+  /* ===== PHONE FRAME ===== */
+  .phone-frame {
+    width: 390px;
+    height: 844px;
+    border-radius: 40px;
+    border: 3px solid #333;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 0 0 8px #1a1a1a, 0 24px 80px rgba(0,0,0,0.6);
+  }
+
+  .phone-notch {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 126px;
+    height: 34px;
+    background: #000;
+    border-radius: 0 0 20px 20px;
+    z-index: 10;
+  }
+
+  .phone-screen {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    scrollbar-width: none;
+    position: relative;
+  }
+
+  .phone-screen::-webkit-scrollbar { display: none; }
+
+  /* =============================================
+     "WELL-DESIGNED" BUT OPPOSITE DIRECTION
+     - Light mode + gradient bg (vs dark)
+     - Glassmorphism (vs semi-flat)
+     - Heavy decoration (vs minimal)
+     - Multi-color accents (vs teal-only)
+     - Gamification/hype (vs calm trust)
+     - Trendy effects (vs conservative modern)
+     - UI-first (vs content-first)
+     ============================================= */
+
+  .screen {
+    min-height: 100%;
+    font-family: 'Nunito', sans-serif;
+    background: linear-gradient(160deg, #667eea 0%, #764ba2 30%, #f093fb 60%, #f5576c 100%);
+    background-attachment: fixed;
+    position: relative;
+  }
+
+  /* Animated floating orbs for "visual richness" */
+  .screen::before,
+  .screen::after {
+    content: '';
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.4;
+    z-index: 0;
+    animation: float 8s ease-in-out infinite;
+  }
+
+  .screen::before {
+    width: 200px;
+    height: 200px;
+    background: #fbc2eb;
+    top: 10%;
+    left: -40px;
+  }
+
+  .screen::after {
+    width: 160px;
+    height: 160px;
+    background: #a6c1ee;
+    bottom: 20%;
+    right: -30px;
+    animation-delay: -4s;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+
+  .screen > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ----- Glass mixin ----- */
+  .glass {
+    background: rgba(255,255,255,0.18);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.3);
+    box-shadow: 0 8px 32px rgba(31,38,135,0.25);
+  }
+
+  /* ----- Header ----- */
+  .header {
+    padding: 54px 20px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .header-left {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .greeting {
+    font-size: 28px;
+    font-weight: 900;
+    color: #fff;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.2);
+  }
+
+  .greeting .wave {
+    display: inline-block;
+    animation: wave 2s ease-in-out infinite;
+    transform-origin: 70% 70%;
+  }
+
+  @keyframes wave {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(20deg); }
+    50% { transform: rotate(-10deg); }
+    75% { transform: rotate(15deg); }
+  }
+
+  .subtitle {
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.8);
+  }
+
+  .avatar-wrapper {
+    position: relative;
+  }
+
+  .avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #f093fb, #f5576c);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 800;
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(245,87,108,0.4);
+    border: 3px solid rgba(255,255,255,0.5);
+  }
+
+  .level-badge {
+    position: absolute;
+    bottom: -4px;
+    right: -4px;
+    background: linear-gradient(135deg, #f5af19, #f12711);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 900;
+    padding: 2px 6px;
+    border-radius: 8px;
+    border: 2px solid rgba(255,255,255,0.6);
+    box-shadow: 0 2px 8px rgba(241,39,17,0.4);
+  }
+
+  /* ----- XP Progress Bar ----- */
+  .xp-bar-section {
+    padding: 0 20px 16px;
+  }
+
+  .xp-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+
+  .xp-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.9);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .xp-label .star {
+    font-size: 14px;
+  }
+
+  .xp-amount {
+    font-size: 12px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.7);
+  }
+
+  .xp-bar-track {
+    height: 10px;
+    border-radius: 5px;
+    background: rgba(255,255,255,0.2);
+    overflow: hidden;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.15);
+  }
+
+  .xp-bar-fill {
+    height: 100%;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #f5af19, #f12711, #f093fb);
+    background-size: 200% 100%;
+    animation: shimmer 3s linear infinite;
+    width: 65%;
+    box-shadow: 0 0 12px rgba(245,175,25,0.5);
+  }
+
+  @keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  /* ----- Stats Row ----- */
+  .stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    padding: 0 20px 20px;
+  }
+
+  .stat-card {
+    border-radius: 20px;
+    padding: 16px 8px;
+    text-align: center;
+  }
+
+  .stat-icon {
+    font-size: 24px;
+    margin-bottom: 4px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+  }
+
+  .stat-number {
+    font-size: 24px;
+    font-weight: 900;
+    color: #fff;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.15);
+  }
+
+  .stat-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.75);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+  }
+
+  /* ----- Streak Banner ----- */
+  .streak-banner {
+    margin: 0 20px 16px;
+    border-radius: 20px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(135deg, rgba(255,170,0,0.3), rgba(255,65,65,0.3));
+    border: 1px solid rgba(255,170,0,0.4);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 4px 24px rgba(255,140,0,0.2);
+  }
+
+  .streak-fire {
+    font-size: 32px;
+    filter: drop-shadow(0 2px 6px rgba(255,100,0,0.5));
+    animation: pulse-fire 1.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse-fire {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+  }
+
+  .streak-info {
+    flex: 1;
+  }
+
+  .streak-count {
+    font-size: 20px;
+    font-weight: 900;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .streak-multiplier {
+    font-size: 11px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #f5af19, #f12711);
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+
+  .streak-sub {
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.75);
+    margin-top: 2px;
+  }
+
+  .streak-sub strong {
+    color: #ffcc00;
+  }
+
+  /* ----- Section Header ----- */
+  .section-header {
+    padding: 8px 20px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .section-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: #fff;
+    text-shadow: 0 1px 6px rgba(0,0,0,0.15);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .section-title .icon {
+    font-size: 20px;
+  }
+
+  .see-all {
+    font-size: 13px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.7);
+    background: rgba(255,255,255,0.15);
+    padding: 6px 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+
+  /* ----- Note Cards ----- */
+  .notes {
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .note-card {
+    border-radius: 20px;
+    padding: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .note-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    border-radius: 20px 20px 0 0;
+  }
+
+  .note-card:nth-child(1)::before {
+    background: linear-gradient(90deg, #667eea, #764ba2);
+  }
+
+  .note-card:nth-child(2)::before {
+    background: linear-gradient(90deg, #f093fb, #f5576c);
+  }
+
+  .note-card:nth-child(3)::before {
+    background: linear-gradient(90deg, #43e97b, #38f9d7);
+  }
+
+  .note-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .note-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: #fff;
+  }
+
+  .note-score {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    font-weight: 800;
+    color: #fff;
+    background: linear-gradient(135deg, #43e97b, #38f9d7);
+    padding: 3px 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(67,233,123,0.3);
+  }
+
+  .note-body {
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.5;
+  }
+
+  .note-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+  }
+
+  .note-date {
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .note-tags {
+    display: flex;
+    gap: 6px;
+  }
+
+  .note-tag {
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 4px 10px;
+    border-radius: 10px;
+    color: #fff;
+  }
+
+  .note-tag.purple {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    box-shadow: 0 2px 8px rgba(102,126,234,0.3);
+  }
+
+  .note-tag.pink {
+    background: linear-gradient(135deg, #f093fb, #f5576c);
+    box-shadow: 0 2px 8px rgba(245,87,108,0.3);
+  }
+
+  .note-tag.green {
+    background: linear-gradient(135deg, #43e97b, #38f9d7);
+    color: #1a4a3a;
+    box-shadow: 0 2px 8px rgba(67,233,123,0.3);
+  }
+
+  /* ----- Practice CTA ----- */
+  .cta {
+    margin: 20px 20px 0;
+    padding: 18px;
+    border-radius: 22px;
+    text-align: center;
+    background: linear-gradient(135deg, #f5af19, #f12711);
+    box-shadow: 0 8px 32px rgba(241,39,17,0.35);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      45deg,
+      transparent 40%,
+      rgba(255,255,255,0.15) 50%,
+      transparent 60%
+    );
+    animation: cta-shine 4s ease-in-out infinite;
+  }
+
+  @keyframes cta-shine {
+    0% { transform: translateX(-100%); }
+    50%, 100% { transform: translateX(100%); }
+  }
+
+  .cta-content {
+    position: relative;
+    z-index: 1;
+  }
+
+  .cta-text {
+    font-size: 18px;
+    font-weight: 900;
+    color: #fff;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .cta-text .rocket {
+    font-size: 22px;
+    display: inline-block;
+    animation: rocket-bounce 1s ease-in-out infinite;
+  }
+
+  @keyframes rocket-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+
+  .cta-sub {
+    font-size: 12px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.85);
+    margin-top: 6px;
+  }
+
+  .cta-timer {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 800;
+    color: #fff;
+    background: rgba(0,0,0,0.2);
+    padding: 3px 10px;
+    border-radius: 8px;
+    margin-top: 8px;
+  }
+
+  /* ----- Achievements Row ----- */
+  .achievements {
+    padding: 20px 20px 16px;
+  }
+
+  .achievement-title {
+    font-size: 14px;
+    font-weight: 800;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .achievement-row {
+    display: flex;
+    gap: 10px;
+  }
+
+  .achievement {
+    flex: 1;
+    border-radius: 16px;
+    padding: 12px 8px;
+    text-align: center;
+  }
+
+  .achievement-icon {
+    font-size: 28px;
+    margin-bottom: 4px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+  }
+
+  .achievement-name {
+    font-size: 10px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.7);
+  }
+
+  .achievement-progress {
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.2);
+    margin-top: 6px;
+    overflow: hidden;
+  }
+
+  .achievement-progress-fill {
+    height: 100%;
+    border-radius: 2px;
+  }
+
+  .achievement:nth-child(1) .achievement-progress-fill {
+    width: 100%;
+    background: linear-gradient(90deg, #43e97b, #38f9d7);
+  }
+
+  .achievement:nth-child(2) .achievement-progress-fill {
+    width: 60%;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+  }
+
+  .achievement:nth-child(3) .achievement-progress-fill {
+    width: 30%;
+    background: linear-gradient(90deg, #f5af19, #f12711);
+  }
+
+  .achievement:nth-child(4) .achievement-progress-fill {
+    width: 80%;
+    background: linear-gradient(90deg, #f093fb, #f5576c);
+  }
+
+  /* ----- Tab Bar ----- */
+  .tab-bar {
+    position: sticky;
+    bottom: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-top: 1px solid rgba(255,255,255,0.2);
+    padding: 8px 0 28px;
+  }
+
+  .tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 0;
+    position: relative;
+  }
+
+  .tab-icon {
+    font-size: 22px;
+    opacity: 0.5;
+    transition: all 0.3s;
+  }
+
+  .tab.active .tab-icon {
+    opacity: 1;
+    transform: scale(1.15);
+    filter: drop-shadow(0 2px 8px rgba(255,255,255,0.3));
+  }
+
+  .tab-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .tab.active .tab-label {
+    color: #fff;
+  }
+
+  .tab.active::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24px;
+    height: 3px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #f093fb, #f5576c);
+    box-shadow: 0 0 8px rgba(240,147,251,0.5);
+  }
+
+  /* ----- Notification Badge ----- */
+  .notif-badge {
+    position: absolute;
+    top: 2px;
+    right: calc(50% - 18px);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #f12711;
+    border: 2px solid rgba(255,255,255,0.3);
+    box-shadow: 0 0 6px rgba(241,39,17,0.5);
+  }
+</style>
+</head>
+<body>
+
+<div class="phone-frame">
+  <div class="phone-notch"></div>
+  <div class="phone-screen">
+    <div class="screen">
+
+      <!-- Header -->
+      <div class="header">
+        <div class="header-left">
+          <div class="greeting"><span class="wave">&#x1F44B;</span> Hey, Yuto!</div>
+          <div class="subtitle">Ready to level up today?</div>
+        </div>
+        <div class="avatar-wrapper">
+          <div class="avatar">Y</div>
+          <div class="level-badge">Lv.12</div>
+        </div>
+      </div>
+
+      <!-- XP Bar -->
+      <div class="xp-bar-section">
+        <div class="xp-label-row">
+          <div class="xp-label"><span class="star">&#x2B50;</span> Level 12 Progress</div>
+          <div class="xp-amount">1,340 / 2,000 XP</div>
+        </div>
+        <div class="xp-bar-track">
+          <div class="xp-bar-fill"></div>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats">
+        <div class="stat-card glass">
+          <div class="stat-icon">&#x1F4DA;</div>
+          <div class="stat-number">156</div>
+          <div class="stat-label">Words</div>
+        </div>
+        <div class="stat-card glass">
+          <div class="stat-icon">&#x1F4DD;</div>
+          <div class="stat-number">23</div>
+          <div class="stat-label">Notes</div>
+        </div>
+        <div class="stat-card glass">
+          <div class="stat-icon">&#x1F3C6;</div>
+          <div class="stat-number">89%</div>
+          <div class="stat-label">Score</div>
+        </div>
+      </div>
+
+      <!-- Streak Banner -->
+      <div class="streak-banner">
+        <div class="streak-fire">&#x1F525;</div>
+        <div class="streak-info">
+          <div class="streak-count">
+            7 Day Streak!
+            <span class="streak-multiplier">x1.5 XP</span>
+          </div>
+          <div class="streak-sub">Don't break it! <strong>18h left</strong></div>
+        </div>
+      </div>
+
+      <!-- Notes Section -->
+      <div class="section-header">
+        <div class="section-title"><span class="icon">&#x1F4D3;</span> Recent Notes</div>
+        <div class="see-all">See all &#x2192;</div>
+      </div>
+
+      <div class="notes">
+        <div class="note-card glass">
+          <div class="note-top-row">
+            <div class="note-title">Meeting with client</div>
+            <div class="note-score">&#x2B50; 92%</div>
+          </div>
+          <div class="note-body">Today I learned how to use "regarding" and "in terms of" in a business email context.</div>
+          <div class="note-meta">
+            <div class="note-date">2/25 14:30</div>
+            <div class="note-tags">
+              <span class="note-tag purple">Business</span>
+              <span class="note-tag pink">+15 XP</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="note-card glass">
+          <div class="note-top-row">
+            <div class="note-title">Coffee shop order</div>
+            <div class="note-score">&#x2B50; 88%</div>
+          </div>
+          <div class="note-body">Practiced ordering in English. "Could I get a..." is more natural than "I want a..."</div>
+          <div class="note-meta">
+            <div class="note-date">2/24</div>
+            <div class="note-tags">
+              <span class="note-tag green">Daily Life</span>
+              <span class="note-tag pink">+12 XP</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="note-card glass">
+          <div class="note-top-row">
+            <div class="note-title">Phrasal verbs</div>
+            <div class="note-score">&#x2B50; 75%</div>
+          </div>
+          <div class="note-body">Look up, look into, look after - these are all different meanings.</div>
+          <div class="note-meta">
+            <div class="note-date">2/23</div>
+            <div class="note-tags">
+              <span class="note-tag purple">Grammar</span>
+              <span class="note-tag pink">+10 XP</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Practice CTA -->
+      <div class="cta">
+        <div class="cta-content">
+          <div class="cta-text"><span class="rocket">&#x1F680;</span> Start Practice</div>
+          <div class="cta-sub">5 items ready &mdash; earn up to 50 XP!</div>
+          <div class="cta-timer">&#x23F0; Daily goal resets in 18:42:05</div>
+        </div>
+      </div>
+
+      <!-- Achievements -->
+      <div class="achievements">
+        <div class="achievement-title">&#x1F3C5; Recent Achievements</div>
+        <div class="achievement-row">
+          <div class="achievement glass">
+            <div class="achievement-icon">&#x1F4AF;</div>
+            <div class="achievement-name">Perfect Week</div>
+            <div class="achievement-progress">
+              <div class="achievement-progress-fill"></div>
+            </div>
+          </div>
+          <div class="achievement glass">
+            <div class="achievement-icon">&#x1F4DA;</div>
+            <div class="achievement-name">Bookworm</div>
+            <div class="achievement-progress">
+              <div class="achievement-progress-fill"></div>
+            </div>
+          </div>
+          <div class="achievement glass">
+            <div class="achievement-icon">&#x26A1;</div>
+            <div class="achievement-name">Speed Run</div>
+            <div class="achievement-progress">
+              <div class="achievement-progress-fill"></div>
+            </div>
+          </div>
+          <div class="achievement glass">
+            <div class="achievement-icon">&#x1F31F;</div>
+            <div class="achievement-name">Star Pupil</div>
+            <div class="achievement-progress">
+              <div class="achievement-progress-fill"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Bar -->
+      <div class="tab-bar">
+        <div class="tab active">
+          <span class="tab-icon">&#x1F3E0;</span>
+          <span class="tab-label">Home</span>
+        </div>
+        <div class="tab">
+          <span class="tab-icon">&#x1F4D6;</span>
+          <span class="tab-label">Notes</span>
+          <span class="notif-badge"></span>
+        </div>
+        <div class="tab">
+          <span class="tab-icon">&#x1F3AF;</span>
+          <span class="tab-label">Practice</span>
+        </div>
+        <div class="tab">
+          <span class="tab-icon">&#x2699;&#xFE0F;</span>
+          <span class="tab-label">Settings</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
